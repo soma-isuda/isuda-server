@@ -32,13 +32,13 @@ exports.getCategory = function (req, res) {
     var second = req.param('second');
 
     if ((first != null) && (second == null)) {//If there is a first category
-        Query = 'Select * FROM ProductInfo INNER JOIN crawlingProductInfo on ProductInfo.id = crawlingProductInfo.id WHERE firstId=' + first;
+        Query = 'Select * FROM productInfo INNER JOIN crawlingProductInfo on productInfo.id = crawlingProductInfo.id WHERE firstId=' + first;
         connection.query(Query, function (error, data) {
             res.send(data);
         });
     }
     else if ((first !== null) && (second !== null)) {//if there is a second category
-        Query = 'Select * FROM ProductInfo INNER JOIN crawlingProductInfo on ProductInfo.id = crawlingProductInfo.id WHERE firstId=' + first + 'AND secondId=' + second;
+        Query = 'Select * FROM productInfo INNER JOIN crawlingProductInfo on productInfo.id = crawlingProductInfo.id WHERE firstId=' + first + 'AND secondId=' + second;
         connection.query(Query, function (error, data) {
             res.send(data);
         });
@@ -81,7 +81,13 @@ exports.getUsers = function (req, res) {
 }
 
 exports.delUsers = function (req, res) {
+    //delete user information by id
+    var id = req.param('id');
+    var query = 'DELETE FROM user WHERE id = '+id;
 
+    connection.query(query,function(error,data){
+        response.send(data);
+    });
 }
 
 exports.putUsers = function (req, res) {
@@ -89,5 +95,13 @@ exports.putUsers = function (req, res) {
 }
 
 exports.postUsers = function (req, res) {
-
+    //get phone number & character number by parameter
+    var phoneNumber = req.param('phoneNumber');
+    var characterNum = req.param('characterNum');
+   
+    connection.query('INSERT INTO user (phoneNumber,characterNum,setAlarm) VALUES(?,?,?)', [
+        phoneNumber,characterNum,1//setAlarm's default = 1
+    ] ,function(error,data){
+        response.send(data);
+    }
 }
