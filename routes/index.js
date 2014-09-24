@@ -7,8 +7,8 @@ var controller = require('../controllers/test');
 
 /* connect to mysql Database */
 var connection = mysql.createConnection({
-	user:'root',
-	password:'wldus1004'
+	//user:
+	//password:
 });
 connection.query('USE isuda');
 
