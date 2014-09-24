@@ -3,12 +3,12 @@ var router = express.Router();
 var mysql = require('mysql');
 
 /* request Contorller */
-var testController = require('../controllers/test');
+var controller = require('../controllers/test');
 
 /* connect to mysql Database */
 var connection = mysql.createConnection({
-	user:'root',
-	password:'wldus1004'
+	//user:
+	//password:
 });
 connection.query('USE isuda');
 
@@ -17,24 +17,22 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+
+/* ---------------GET category list--------------- */
+router.get('/category', controller.getCategory);
+/* ---------------GET product Info--------------- */
+router.get('/productInfo', controller.getProductInfo);
+/* ---------------Alarm--------------- */
+router.get('/alarms', controller.getAlarms);
+router.del('/alarms', controller.delAlarms);
+/* ---------------Users -------------- */
+router.get('/users', controller.getUsers);
+router.del('/users', controller.delUsers);
+router.put('/users', controller.putUsers);
+router.post('/users', controller.postUsers);
+
+/*for test*/
 router.get('/test', testController.test);
-
-/* test : nodejs - smart TV */
-router.get('/testDB',function(req,res){
-	/* get all data from 'testTable' table */
-	connection.query('SELECT * FROM testTable',function(error,data){
-		res.send(data);
-	});
-});
-
-router.post('/testDB',function(req,res){
-	var number = req.param('number');
-	connection.query('INSERT INTO testTable (number) VALUES(?)',[
-		number],
-		function(error,data){
-			res.send(data);
-		}
-	);	
-});
+router.get('/testDB', testController.testDB);/* test : nodejs - smart TV */
 
 module.exports = router;

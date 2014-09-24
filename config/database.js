@@ -7,10 +7,10 @@ db.pool = generic_pool.Pool({
     name : 'mysql',
     create : function(callback) {
         var config = {
-            host: '172.16.100.171',
-            port: '3306',
-            user: 'isuda',
-            password: 'wldus1004',
+            host: '',
+            port: '',
+            user: '',
+            password: '',
             database: ''
         };
 
@@ -25,7 +25,7 @@ db.pool = generic_pool.Pool({
     },
     max : 10,
     min : 2,
-    idleTimeoutMills : 30000,   //5분동안 접속을 유지??
+    idleTimeoutMills : 30000, 
     log : false
 });
 
