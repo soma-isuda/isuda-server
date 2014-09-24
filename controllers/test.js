@@ -6,8 +6,8 @@
 /* connect to mysql Database */
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	user:'root',
-	password:'wldus1004'
+	user:'',
+	password:''
 });
 connection.query('USE isuda');
 
