@@ -7,7 +7,7 @@ db.pool = generic_pool.Pool({
     name : 'mysql',
     create : function(callback) {
         var config = {
-            host: '172.16.100.171',
+            host: '127.0.0.1',
             port: '3306',
             user: 'isuda',
             password: 'wldus1004',
