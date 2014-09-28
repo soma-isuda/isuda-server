@@ -6,8 +6,8 @@
 /* connect to mysql Database */
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-	user:'',
-	password:''
+	user:'root',
+	password:'wldus1004'
 });
 connection.query('USE isuda');
 
@@ -26,26 +26,27 @@ exports.testDB = function(req,res){
 }
 
 /* ---------------Category Servelet ==== GET category list--------------- */
-//Get product's list from first category 
-exports.getCategory = function (req, res) {
-    var first = req.param('first');
-    var second = req.param('second');
+exports.getFirstCategory = function (req, res) {
 
-    if ((first != null) && (second == null)) {//If there is a first category
-        Query = 'Select * FROM productInfo INNER JOIN crawlingProductInfo on productInfo.id = crawlingProductInfo.id WHERE firstId=' + first;
-        connection.query(Query, function (error, data) {
-            res.send(data);
-        });
-    }
-    else if ((first !== null) && (second !== null)) {//if there is a second category
-        Query = 'Select * FROM productInfo INNER JOIN crawlingProductInfo on productInfo.id = crawlingProductInfo.id WHERE firstId=' + first + 'AND secondId=' + second;
-        connection.query(Query, function (error, data) {
-            res.send(data);
-        });
-    } else {//error
-        console.log('Parameter Error');
-    }
+    connection.query('SELECT * FROM firstCategory', function (error, data) {
+        res.send(data);
+    });
 }
+ 
+exports.getSecondCategory = function (req, res) {
+    var firstId = req.params.firstId;
+    connection.query('SELECT * FROM secondCategory where firstId = (?)', [firstId],
+    function (error, data) {
+        res.send(data);
+    });
+}
+ 
+exports.getSecondCategory = function (req, res) {
+    connection.query('SELECT * FROM secondCategory', function (error, data) {
+        res.send(data);
+    });
+}
+
 
 /* ---------------productInfo Servelet ==== GET productInfo--------------- */
 exports.getProductInfo = function (req, res) {
@@ -59,7 +60,7 @@ exports.getProductInfo = function (req, res) {
 /* ---------------Alarm Servelet ==== GET alarm Info--------------- */
 exports.getAlarms = function (req, res) {
     //userid
-    var id = req.param('id');
+    var userId = req.param('userId');
     var Query = 'Select * FROM SMSAlarm INNER JOIN crawlingProductInfo on SMSAlarm.productId =  crawlingProductInfo.id WHERE userId = ' + id;
     connection.query(Query, function (error, data) {
         res.send(data);
@@ -73,6 +74,14 @@ exports.delAlarms = function (req, res) {
     connection.query(Query, function (error, data) {
         res.send(data);
     })
+}
+
+/* ---------------Alarm Servelet ====post alarm Info--------------- */
+exports.postAlarms = function (req, res) {
+    var productId = req.param('productId');
+    var userId = req.param('userId');
+    var Query = 'INSERT INTO SMSAlarm (productId, userId) VALUES (' +productId+','+userId+')';
+
 }
 
 /* ---------------Users Servelet--------------- */
@@ -100,8 +109,8 @@ exports.postUsers = function (req, res) {
     var characterNum = req.param('characterNum');
    
     connection.query('INSERT INTO user (phoneNumber,characterNum,setAlarm) VALUES(?,?,?)', [
-        phoneNumber,characterNum,1//setAlarm's default = 1
-    ] ,function(error,data){
+        phoneNumber, characterNum, 1//setAlarm's default = 1
+    ], function (error, data) {
         response.send(data);
-    }
+    });
 }

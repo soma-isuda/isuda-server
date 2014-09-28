@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var alarms = require('./routes/alarms');
+//var users = require('./routes/users');
+//var alarms = require('./routes/alarms');
 var app = express();
 
 // view engine setup
@@ -23,8 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/alarms', alarms);
+//app.use('/users', users);
+//app.use('/alarms', alarms);
 
 // from www
 app.set('port', process.env.PORT || 3000);
