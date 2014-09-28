@@ -22,7 +22,28 @@ router.get('/test', testController.test);
 /* test : nodejs - smart TV */
 router.get('/testDB',function(req,res){
 	/* get all data from 'testTable' table */
-	connection.query('SELECT * FROM testTable',function(error,data){
+	connection.query('SELECT * FROM imageTest',function(error,data){
+		res.send(data);
+	});
+});
+
+router.get('/getFristCategory', function(req, res){
+	
+	connection.query('SELECT * FROM firstCategory', function(error, data){
+	res.send(data);
+	});
+});
+
+router.get('/getSecondCategory/:first', function(req, res){
+	var firstidx = req.params.first;
+	connection.query('SELECT * FROM secondCategory where firstId = (?)',[firstidx],
+	function(error, data){
+		res.send(data);
+	});
+});
+
+router.get('/getSecondCategory', function(req, res){
+	connection.query('SELECT * FROM secondCategory', function(error, data){
 		res.send(data);
 	});
 });
