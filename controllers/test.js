@@ -109,7 +109,7 @@ exports.now = function (req, res) {
     var Query = 'select * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
         + ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
         + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
-        +'   group by providerId      ) )';
+        +'   group by providerId      ) ) order by providerId ';
 
     connection.query(Query,
         function (error, data) {
