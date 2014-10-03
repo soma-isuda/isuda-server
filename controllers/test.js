@@ -45,14 +45,14 @@ exports.getProductInfo = function (req, res) {
     var secondId = req.param('secondId');
     var productId = req.param('productId');
     console.log(productId);
-    if (productId) {//id¿¡ µû¶ó »óÇ°Á¤º¸¸¦ °¡Á®¿Â´Ù.
+    if (productId) {//idï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
         var Query = 'SELECT * FROM productInfo WHERE id = ' +productId;
         connection.query(Query, function (error, data) {
             res.send(data);
         })
     }
     else if (secondId) {
-        //secondId(ÁßºÐ·ù)¿¡ µû¶ó »óÇ°Á¤º¸¸¦ °¡Á®¿Â´Ù.
+        //secondId(ï¿½ßºÐ·ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
         var Query = 'SELECT * FROM productInfo WHERE secondId = ' + secondId;
         connection.query(Query, function (error, data) {
             res.send(data);
@@ -112,7 +112,7 @@ exports.now = function (req, res) {
         +'   group by providerId      ) )';
 
     connection.query(query,
-        function (error, data) {e
+        function (error, data) {
             res.send(data);
         });
 };
