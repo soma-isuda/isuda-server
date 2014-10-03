@@ -106,7 +106,7 @@ exports.postAlarms = function (req, res) {
 };
 
 exports.now = function (req, res) {
-    var Query = 'selct * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
+    var Query = 'select * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
         + ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
         + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
         +'   group by providerId      ) )';
