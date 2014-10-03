@@ -15,7 +15,7 @@ exports.test = function (req, res) {
     console.log('test ');
 
     res.json({'message' : "server ready"});
-}
+};
 
 /* ---------------Category Servelet ==== GET category list--------------- */
 exports.getFirstCategory = function (req, res) {
@@ -23,7 +23,7 @@ exports.getFirstCategory = function (req, res) {
     connection.query('SELECT * FROM firstCategory', function (error, data) {
         res.send(data);
     });
-}
+};
 
 
 exports.getSecondCategory = function (req, res) {
@@ -39,7 +39,7 @@ exports.getSecondCategory = function (req, res) {
             res.send(data);
         });
     }
-}
+};
 /* ---------------productInfo Servelet ==== GET productInfo--------------- */
 exports.getProductInfo = function (req, res) {
     var secondId = req.param('secondId');
@@ -65,7 +65,7 @@ exports.getProductInfo = function (req, res) {
             res.send(data);
         })
     }
-}
+};
 
 /* ---------------Alarm Servelet ==== GET alarm Info--------------- */
 exports.getAlarms = function (req, res) {
@@ -83,7 +83,7 @@ exports.getAlarms = function (req, res) {
             res.send(data);
         })
     }
-}
+};
 
 /* ---------------Alarm Servelet ====delete alarm Info--------------- 
 exports.delAlarms = function (req, res) {
@@ -103,4 +103,16 @@ exports.postAlarms = function (req, res) {
     var userId = req.param('userId');
     var Query = 'INSERT INTO SMSAlarm (productId, userId) VALUES (' + productId + ',' + userId + ')';
 
-}
+};
+
+exports.now = function (req, res) {
+    var Query = 'selct * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
+        + ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
+        + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
+        +'   group by providerId      ) )';
+
+    connection.query(query,
+        function (error, data) {e
+            res.send(data);
+        });
+};
