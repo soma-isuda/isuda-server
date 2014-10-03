@@ -15,7 +15,6 @@
     "ejs": "~0.8.5",
     "mysql" : "*",
     "async" : "*",
-    "generic-pool": "^2.0.4",
-    "cron":"*"
+    "generic-pool": "^2.0.4"
   }
 }
