@@ -111,7 +111,7 @@ exports.now = function (req, res) {
         + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
         +'   group by providerId      ) )';
 
-    connection.query(query,
+    connection.query(Query,
         function (error, data) {
             res.send(data);
         });
