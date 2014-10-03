@@ -94,3 +94,15 @@ exports.postAlarms = function (req, res) {
     var Query = 'INSERT INTO SMSAlarm (productId, userId) VALUES (' + productId + ',' + userId + ')';
 
 };
+
+exports.now = function (req, res) {
+    var Query = 'selct * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
+        + ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
+        + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
+        +'   group by providerId      ) )';
+
+    connection.query(query,
+        function (error, data) {e
+            res.send(data);
+        });
+};
