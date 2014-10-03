@@ -3,21 +3,14 @@ var router = express.Router();
 var mysql = require('mysql');
 
 /* request Contorller */
-var testController = require('../controllers/test');
-
-/* connect to mysql Database */
-var connection = mysql.createConnection({
-	user:'root',
-	password:'wldus1004'
-});
-connection.query('USE isuda');
+var controller = require('../controllers/test');
 
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test', testController.test);
+router.get('/test', controller.test);
 
 /* test : nodejs - smart TV */
 router.get('/testDB',function(req,res){
@@ -27,35 +20,30 @@ router.get('/testDB',function(req,res){
 	});
 });
 
-router.get('/getFristCategory', function(req, res){
-	
-	connection.query('SELECT * FROM firstCategory', function(error, data){
-	res.send(data);
-	});
-});
+//-------------MAIN---------------
+router.get('/now', controller.now);
 
-router.get('/getSecondCategory/:first', function(req, res){
-	var firstidx = req.params.first;
-	connection.query('SELECT * FROM secondCategory where firstId = (?)',[firstidx],
-	function(error, data){
-		res.send(data);
-	});
-});
 
-router.get('/getSecondCategory', function(req, res){
-	connection.query('SELECT * FROM secondCategory', function(error, data){
-		res.send(data);
-	});
-});
+// ---------------GET category list--------------- 
+router.get('/getFirstCategory', controller.getFirstCategory);
+router.get('/getSecondCategory/:firstId', controller.getSecondCategory);
+router.get('/getSecondCategory', controller.getSecondCategory);
 
-router.post('/testDB',function(req,res){
-	var number = req.param('number');
-	connection.query('INSERT INTO testTable (number) VALUES(?)',[
-		number],
-		function(error,data){
-			res.send(data);
-		}
-	);	
-});
+// ---------------GET product Info--------------- 
+router.get('/productInfo', controller.getProductInfo);
+//example : http://172.16.100.171:3000/productInfo?id=2 //selected information
+//example : http://172.16.100.171:3000/productInfo //total information
+
+// ---------------Alarm--------------- 
+router.get('/alarms', controller.getAlarms);
+//router.del('/alarms', controller.delAlarms);
+router.post('/alarms', controller.postAlarms);
+/*
+// ---------------Users -------------- 
+router.get('/users', controller.getUsers);
+router.del('/users', controller.delUsers);
+router.put('/users', controller.putUsers);
+router.post('/users', controller.postUsers);
+*/
 
 module.exports = router;
