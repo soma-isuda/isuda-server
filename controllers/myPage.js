@@ -15,10 +15,10 @@ exports.deleteUser = function (req, res) {
 };
 
 exports.insertCategoryAlarm = function (req, res) {
-    var values = new {};
-    values.phoneNumber = req.param('phoneNumber');
-    values.secondName = req.param('secondName');
-    model.insertCategoryAlarm(values, function (err, result) {
+
+    var phoneNumber = req.param('phoneNumber');
+    var secondName = req.param('secondName');
+    model.insertCategoryAlarm([phoneNumber, secondName], function (err, result) {
         if(err){
             console.log(err);
         }else{
@@ -27,4 +27,38 @@ exports.insertCategoryAlarm = function (req, res) {
             });
         }
     });
+};
+
+exports.getSMSAlarms = function (req, res) {
+    var phoneNumber = req.param('phoneNumber');
+    model.getSMSAlarms([phoneNumber], function (err, result) {
+        res.json(result);
+    });
+};
+
+exports.getCategoryAlarms = function (req, res) {
+    var phoneNumber = req.param('phoneNumber');
+    model.getCategoryAlarms([phoneNumber], function (err, result) {
+        res.json(result);
+    });
+
+};
+
+exports.postAlarms = function (req, res) {
+    var productId = req.param('productId');
+    var phoneNumber = req.param('phoneNumber');
+
+    model.postAlarms([productId, phoneNumber], function (err, result) {
+        res.json(result);
+    });
+};
+// ---------------User Servelet ====post user Info---------------
+exports.postUsers = function (req, res) {
+    var phoneNumber = req.param('phoneNumber');
+
+    model.postUsers([phoneNumber, phoneNumber], function (err, result) {
+        res.json(result);
+    });
+
+
 };

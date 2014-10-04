@@ -120,3 +120,55 @@ exports.productInfo = function (callback) {
         db.pool.release(conn);
     });
 };
+
+exports.getSMSAlarms = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * from productInfo where id = (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? ))';
+        conn.query(Query, data, function(err, result) {
+            console.log('getSMSAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.getCategoryAlarms = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
+        conn.query(Query, data, function(err, result) {
+            console.log('getCategoryAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.postAlarms(data, function (err, result) {
+    var Query = "INSERT SMSAlarm (productId,userId) SELECT '" + productId + "', (SELECT id FROM user WHERE phoneNumber = '" + phoneNumber + "')";
+    //var Query = "INSERT SMSAlarm (productId,userId) SELECT '3', (SELECT id FROM user WHERE phoneNumber = '01090897672')";
+    //var Query = "INSERT SMSAlarm (productId,userId) SELECT '"+productId+ "', (userId) FROM user WHERE phoneNumber = '"+phoneNumber+"'";
+
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
+        conn.query(Query, data, function(err, result) {
+            console.log('postAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+});
+
+exports.postUsers(data, function (err, result) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = "INSERT INTO user ( phoneNumber,characterNum,setAlarm ) SELECT ? ,'0','1' FROM dual WHERE NOT EXISTS (SELECT *  FROM user WHERE  phoneNumber =  ? )";
+        conn.query(Query, data, function(err, result) {
+            console.log('postUsers result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+});

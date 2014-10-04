@@ -31,11 +31,11 @@ router.get('/productInfo', selectPage.getProductInfo);
 //example : http://172.16.100.171:3000/productInfo //total information
 
 // ---------------Alarm---------------
-router.post('/sAlarms', controller.postAlarms);         //단일상품 알람 등록
+router.post('/sAlarms', myPage.postAlarms);         //단일상품 알람 등록
 router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등록
 
-router.get('/sAlarms', controller.getSMSAlarms);        //단일상품 알람 조회
-router.get('/cAlarms',controller.getCategoryAlarms);    //중분류 알람 조회
+router.get('/sAlarms', myPage.getSMSAlarms);        //단일상품 알람 조회
+router.get('/cAlarms',myPage.getCategoryAlarms);    //중분류 알람 조회
 
 /*
 // ---------------Users -------------- 
@@ -43,7 +43,7 @@ router.get('/users', controller.getUsers);
 
 router.put('/users', controller.putUsers);
 */
-router.post('/user', controller.postUsers);
+router.post('/user', myPage.postUsers);
 router.delete('/user', myPage.deleteUser);
 
 
