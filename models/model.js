@@ -62,7 +62,7 @@ exports.deleteUser = function (data, callback) {
         if(err) console.error('err', err);
         var Query = 'DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?) ;';
         Query += ' DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ; ';
-        Query += ' DELETE FROM user WHERE `phoneNumber` = ? ';
+        Query += ' DELETE FROM user WHERE `phoneNumber` = ? ;';
         conn.query(Query, [data, data, data], function(err, result) {
             console.log('deleteUser result');
             callback(err, result);
