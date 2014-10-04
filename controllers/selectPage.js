@@ -25,7 +25,7 @@ exports.getProductInfo = function (req, res) {
     }
 
     else {
-        model.productInfo(secondId, function (err, result) {
+        model.productInfo(function (err, result) {
             if(err) console.log(err);
             res.json(result);
         });
