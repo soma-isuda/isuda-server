@@ -145,8 +145,7 @@ exports.getCategoryAlarms = function (data, callback) {
     });
 };
 
-exports.postAlarms(data, function (err, result) {
-
+exports.postAlarms = function(data, callback) {
     //var Query = "INSERT SMSAlarm (productId,userId) SELECT '3', (SELECT id FROM user WHERE phoneNumber = '01090897672')";
     //var Query = "INSERT SMSAlarm (productId,userId) SELECT '"+productId+ "', (userId) FROM user WHERE phoneNumber = '"+phoneNumber+"'";
 
@@ -159,9 +158,9 @@ exports.postAlarms(data, function (err, result) {
         });
         db.pool.release(conn);
     });
-});
+};
 
-exports.postUsers(data, function (err, result) {
+exports.postUsers = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = "INSERT INTO user ( phoneNumber,characterNum,setAlarm ) SELECT ? ,'0','1' FROM dual WHERE NOT EXISTS (SELECT *  FROM user WHERE  phoneNumber =  ? )";
@@ -171,5 +170,5 @@ exports.postUsers(data, function (err, result) {
         });
         db.pool.release(conn);
     });
-});
+};
 
