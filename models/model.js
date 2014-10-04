@@ -165,7 +165,7 @@ exports.getAlarmedCategory = function (data, callback) {
         if(err) console.error('err', err);
         var Query = 'SELECT s.id secondId, f.id firstId, s.name secondName, f.name firstName  from secondCategory s, firstCategory f where s.firstId = f.id and  s.id in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
         conn.query(Query, data, function(err, result) {
-            console.log('getCategoryAlarms result');
+            console.log('getAlarmedCategory result');
             callback(err, result);
         });
         db.pool.release(conn);
