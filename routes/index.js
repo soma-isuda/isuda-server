@@ -36,6 +36,7 @@ router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등�
 
 router.get('/sAlarms', myPage.getSMSAlarms);        //단일상품 알람 조회
 router.get('/cAlarms',myPage.getAlarmedCategory);    //중분류 알람 조회
+router.get('/cAlarmsSMS', myPage.getCategoryAlarms);    //중분류로 알림보낼 상품들 조회
 
 /*
 // ---------------Users -------------- 

@@ -53,7 +53,7 @@ exports.postAlarms = function (req, res) {
         res.json(result);
     });
 };
-// ---------------User Servelet ====post user Info---------------
+
 exports.postUsers = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
