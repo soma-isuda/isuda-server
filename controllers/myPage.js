@@ -22,7 +22,7 @@ exports.deleteUser = function (req, res) {
 exports.insertCategoryAlarm = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
     var secondName = req.param('secondName');
-    var firstId = requ.param('firstId');
+    var firstId = req.param('firstId');
 
     model.insertCategoryAlarm([phoneNumber, secondName, firstId], function (err, result) {
         if(err){
