@@ -63,12 +63,3 @@ exports.postUsers = function (req, res) {
 
 
 };
-
-exports.deleteUser = function (req, res) {
-    var phoneNumber = req.param('phoneNumber');
-    model.deleteUser(phoneNumber, function (err, result) {
-        res.json({
-           result : "success"
-        });
-    });
-};
