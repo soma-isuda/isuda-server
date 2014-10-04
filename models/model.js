@@ -77,7 +77,7 @@ exports.insertCategoryAlarm = function (data, callback) {
         if(err) console.error('err', err);
         var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber = (?)), (select id from secondCategory where name = (?)))';
 
-        conn.query(Query, [data.phoneNumber, data.secondName], function(err, result) {
+        conn.query(Query, [ data.phoneNumber, data.secondName ], function(err, result) {
             console.log('insertCategoryAlarm result');
             callback(err, result);
         });
