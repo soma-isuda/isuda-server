@@ -60,10 +60,9 @@ exports.getSecondCategory = function (data, callback) {
 exports.deleteUser = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query =
-            'delete from categoryAlarm where userId = (select id from `user` where phoneNumber = ?) ;'
-            + 'delete from SMSAlarm where userId = (select id from `user` where phoneNumber = ?) ; '
-            + 'DELETE FROM user WHERE phoneNumber = (?)';
+        var Query = 'delete from categoryAlarm where userId = (select id from `user` where phoneNumber = ?) ;'
+        + 'delete from SMSAlarm where userId = (select id from `user` where phoneNumber = ?) ; '
+        + 'DELETE FROM user WHERE phoneNumber = ?';
         conn.query(Query, [data, data, data], function(err, result) {
             console.log('deleteUser result');
             callback(err, result);
