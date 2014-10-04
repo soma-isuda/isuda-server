@@ -5,6 +5,7 @@ var mysql = require('mysql');
 /* request Contorller */
 var controller = require('../controllers/test');
 var mainPage = require('../controllers/mainPage');
+var schedulePage = require('../controllers/schedulePage');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -26,9 +27,9 @@ router.get('/now', mainPage.now);
 
 
 // ---------------GET category list--------------- 
-router.get('/getFirstCategory', controller.getFirstCategory);
-router.get('/getSecondCategory/:firstId', controller.getSecondCategory);
-router.get('/getSecondCategory', controller.getSecondCategory);
+router.get('/getFirstCategory', schedulePage.getFirstCategory);
+router.get('/getSecondCategory/:firstId', schedulePage.getSecondCategory);
+router.get('/getSecondCategory', schedulePage.getSecondCategory);
 
 // ---------------GET product Info--------------- 
 router.get('/productInfo', controller.getProductInfo);

@@ -20,3 +20,40 @@ exports.now = function (callback){
         db.pool.release(conn);
     });
 };
+
+exports.getFirstCategory = function(data, callback){
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM firstCategory';
+        conn.query(Query, data, function(err, result) {
+            console.log('getFirstCategory result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+
+exports.getSecondCategoryAll = function (callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM secondCategory';
+        conn.query(Query, function(err, result) {
+            console.log('getSecondCategoryAll result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.getSecondCategory = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM secondCategory where firstId = (?)';
+        conn.query(Query, [data], function(err, result) {
+            console.log('getSecondCategoryAll result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};

@@ -13,33 +13,10 @@ connection.query('USE isuda');
 
 exports.test = function (req, res) {
     console.log('test ');
-
     res.json({'message' : "server ready"});
 };
 
-/* ---------------Category Servelet ==== GET category list--------------- */
-exports.getFirstCategory = function (req, res) {
 
-    connection.query('SELECT * FROM firstCategory', function (error, data) {
-        res.send(data);
-    });
-};
-
-
-exports.getSecondCategory = function (req, res) {
-    var firstId = req.params.firstId;
-    if (firstId) {
-        connection.query('SELECT * FROM secondCategory where firstId = (?)', [firstId],
-        function (error, data) {
-            res.send(data);
-        });
-    }
-    else {
-        connection.query('SELECT * FROM secondCategory', function (error, data) {
-            res.send(data);
-        });
-    }
-};
 /* ---------------productInfo Servelet ==== GET productInfo--------------- */
 exports.getProductInfo = function (req, res) {
     var secondId = req.param('secondId');
