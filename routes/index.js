@@ -21,10 +21,6 @@ router.get('/testDB',function(req,res){
 	});
 });
 
-//-------------MAIN---------------
-router.get('/now', mainPage.now);
-
-
 // ---------------GET category list--------------- 
 router.get('/getFirstCategory', controller.getFirstCategory);
 router.get('/getSecondCategory/:firstId', controller.getSecondCategory);
