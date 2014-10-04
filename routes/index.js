@@ -38,6 +38,7 @@ router.get('/cAlarms',myPage.getAlarmedCategory);    //중분류 알람 조회
 router.get('/cAlarmsSMS', myPage.getCategoryAlarms);    //중분류로 알림보낼 상품들 조회
 
 router.delete('/sAlarms', myPage.deleteSMSAlarms);  //단일상품 알람 삭제
+
 /*
 // ---------------Users -------------- 
 router.get('/users', controller.getUsers);
