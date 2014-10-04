@@ -31,13 +31,13 @@ router.get('/productInfo', selectPage.getProductInfo);
 
 // ---------------Alarm---------------
 router.post('/sAlarms', myPage.postAlarms);         //단일상품 알람 등록
-router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등록
+router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등록 //TODO(error)
 
 router.get('/sAlarms', myPage.getSMSAlarms);        //단일상품 알람 조회
 router.get('/cAlarms',myPage.getAlarmedCategory);    //중분류 알람 조회
-router.get('/cAlarmsSMS', myPage.getCategoryAlarms);    //중분류로 알림보낼 상품들 조회
+router.get('/cAlarmsSMS', myPage.getCategoryAlarms);    //중분류로 알림보낼 상품들 조회  )
 
-router.delete('/sAlarms', myPage.deleteSMSAlarms);  //단일상품 알람 삭제
+router.delete('/sAlarms', myPage.deleteSMSAlarms);  //단일상품 알람 삭제    //TODO(error)
 
 /*
 // ---------------Users -------------- 
@@ -46,7 +46,7 @@ router.get('/users', controller.getUsers);
 router.put('/users', controller.putUsers);
 */
 router.post('/user', myPage.postUsers);
-router.delete('/user', myPage.deleteUser);
+router.delete('/user', myPage.deleteUser);  //TODO(error
 
 
 module.exports = router;
