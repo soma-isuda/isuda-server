@@ -75,7 +75,7 @@ exports.deleteUser = function (data, callback) {
 exports.insertCategoryAlarm = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber = ? ), (select id from secondCategory where name = ? ))';
+        var Query = 'insert into categoryAlarm (userId, secondId ) values ( (select id from `user` where phoneNumber = ? ), (select id from secondCategory where name = ? ))';
         conn.query(Query, [ data.phoneNumber, data.secondName ], function(err, result) {
             console.log('insertCategoryAlarm result');
             callback(err, result);
