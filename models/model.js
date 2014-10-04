@@ -76,7 +76,7 @@ exports.insertCategoryAlarm = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         console.log('data', data);
-        var Query = 'insert into categoryAlarm (userId, secondId) values ( (select id from `user` where phoneNumber = "?" ), (select id from secondCategory where name = "?" ))';
+        var Query = "insert into categoryAlarm (userId, secondId) values ( (select id from `user` where phoneNumber = '?' ), (select id from secondCategory where name = '?' ))";
         conn.query(Query, data, function(err, result) {
             console.log('insertCategoryAlarm result');
             callback(err, result);
