@@ -60,6 +60,12 @@ exports.postUsers = function (req, res) {
     model.postUsers([phoneNumber, phoneNumber], function (err, result) {
         res.json(result);
     });
+};
 
+exports.getAlarmedCategory = function (req, res) {
+    var phoneNumber = req.param('phoneNumber');
 
+    model.getAlarmedCategory([phoneNumber], function (err, result) {
+        res.json(result);
+    });
 };

@@ -35,7 +35,7 @@ router.post('/sAlarms', myPage.postAlarms);         //단일상품 알람 등록
 router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등록
 
 router.get('/sAlarms', myPage.getSMSAlarms);        //단일상품 알람 조회
-router.get('/cAlarms',myPage.getCategoryAlarms);    //중분류 알람 조회
+router.get('/cAlarms',myPage.getAlarmedCategory);    //중분류 알람 조회
 
 /*
 // ---------------Users -------------- 
