@@ -17,33 +17,6 @@ exports.test = function (req, res) {
 };
 
 
-/* ---------------productInfo Servelet ==== GET productInfo--------------- */
-exports.getProductInfo = function (req, res) {
-    var secondId = req.param('secondId');
-    var productId = req.param('productId');
-    console.log(productId);
-    if (productId) {//id�� ��� ��ǰ������ �����´�.
-        var Query = 'SELECT * FROM productInfo WHERE id = ' +productId;
-        connection.query(Query, function (error, data) {
-            res.send(data);
-        })
-    }
-    else if (secondId) {
-        //secondId(�ߺз�)�� ��� ��ǰ������ �����´�.
-        var Query = 'SELECT * FROM productInfo WHERE secondId = ' + secondId;
-        connection.query(Query, function (error, data) {
-            res.send(data);
-        })
-    }
-    
-    else {
-        var Query = 'SELECT * FROM productInfo';
-        connection.query(Query, function (error, data) {
-            res.send(data);
-        })
-    }
-};
-
 /* ---------------Alarm Servelet ==== GET alarm Info--------------- */
 exports.getSMSAlarms = function (req, res) {
     
