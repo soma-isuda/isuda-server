@@ -34,6 +34,16 @@ exports.insertCategoryAlarm = function (req, res) {
     });
 };
 
+exports.deleteSMSAlarms = function (req, res) {
+    var phoneNumber = req.param('phoneNumber');
+    var productId = req.param('productId');
+
+    model.deleteSMSAlarms([productId, phoneNumber], function (err, result) {
+       if(err) console.log(err);
+       else res.json({result:"success"});
+    });
+};
+
 exports.getSMSAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
     model.getSMSAlarms([phoneNumber], function (err, result) {
@@ -73,3 +83,4 @@ exports.getAlarmedCategory = function (req, res) {
         res.json(result);
     });
 };
+

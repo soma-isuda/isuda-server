@@ -85,6 +85,18 @@ exports.insertCategoryAlarm = function (data, callback) {
     });
 };
 
+exports.deleteSMSAlarms = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        console.log('data', data);
+        var Query = 'delete from SMSAlarm where productId = ? and userId = (select id from `user` where phoneNumber = ? )';
+        conn.query(Query, data, function(err, result) {
+            console.log('deleteSMSAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
 
 
 exports.productInfoById = function (data, callback) {
