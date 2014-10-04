@@ -27,7 +27,7 @@ app.use('/', routes);
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + server.address().port);
+    console.log('ISUDA-Smart Homeshopping server listening on port ' + server.address().port);
 });
 
 // catch 404 and forward to error handler

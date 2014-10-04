@@ -4,6 +4,7 @@
 
 var model = require('../models/model');
 
+
 //전화번호를 통해 사용자 정보를 삭제한다.
 exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
@@ -19,8 +20,8 @@ exports.deleteUser = function (req, res) {
 };
 
 exports.insertCategoryAlarm = function (req, res) {
-    var phoneNumber = req.body.phoneNumber;
-    var secondName = req.body.secondName;
+    var phoneNumber = req.param('phoneNumber');
+    var secondName = req.param('secondName');
 
     model.insertCategoryAlarm([phoneNumber, secondName], function (err, result) {
         if(err){
