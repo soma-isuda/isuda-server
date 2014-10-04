@@ -19,11 +19,10 @@ exports.insertCategoryAlarm = function (req, res) {
     values.phoneNumber = req.param('phoneNumber');
     values.secondName = req.param('secondName');
     model.insertCategoryAlarm(values, function (err, result) {
-        console.log(result);
+
         if(err){
-            res.json({
-                result : "error"
-            })
+            console.log(err);
+            res.json(err);
         }else{
             res.json({
                 result : "success"
