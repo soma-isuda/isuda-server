@@ -21,7 +21,6 @@ exports.insertCategoryAlarm = function (req, res) {
     model.insertCategoryAlarm(values, function (err, result) {
         if(err){
             console.log(err);
-            res.json(err);
         }else{
             res.json({
                 result : "success"
