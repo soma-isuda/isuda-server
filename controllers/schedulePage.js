@@ -17,7 +17,7 @@ exports.getSecondCategory = function (req, res) {
             res.send(result);
         });
     } else {
-        model.getSecondCategory(function (err, result) {
+        model.getSecondCategoryAll(function (err, result) {
             res.send(result);
         })
     }
