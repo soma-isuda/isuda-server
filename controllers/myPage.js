@@ -9,9 +9,13 @@ var model = require('../models/model');
 exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
     model.deleteUser(phoneNumber, function (err, result) {
-        res.json({
-           result : "success"
-        });
+        if(err){
+            console.log(err);
+        }else{
+            res.json({
+                result : "success"
+            });
+        }
     });
 };
 
@@ -19,6 +23,7 @@ exports.insertCategoryAlarm = function (req, res) {
 
     var phoneNumber = req.param('phoneNumber');
     var secondName = req.param('secondName');
+
     model.insertCategoryAlarm([phoneNumber, secondName], function (err, result) {
         if(err){
             console.log(err);
