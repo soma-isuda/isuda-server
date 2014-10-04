@@ -35,15 +35,17 @@ router.get('/productInfo', controller.getProductInfo);
 //example : http://172.16.100.171:3000/productInfo //total information
 
 // ---------------Alarm--------------- 
-router.get('/alarms', controller.getAlarms);
+router.get('/sAlarms', controller.getSMSAlarms);
+router.get('/cAlarms',controller.getCategoryAlarms);
 //router.del('/alarms', controller.delAlarms);
 router.post('/alarms', controller.postAlarms);
 /*
 // ---------------Users -------------- 
 router.get('/users', controller.getUsers);
-router.del('/users', controller.delUsers);
+
 router.put('/users', controller.putUsers);
-router.post('/users', controller.postUsers);
 */
+router.post('/user', controller.postUsers);
+router.delete('/user', controller.delUsers);
 
 module.exports = router;
