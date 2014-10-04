@@ -48,7 +48,7 @@ exports.getSecondCategoryAll = function (callback) {
 exports.getSecondCategory = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT * FROM secondCategory where firstId = (?)';
+        var Query = 'SELECT * FROM secondCategory where firstId = ?';
         conn.query(Query, [data], function(err, result) {
             console.log('getSecondCategoryAll result');
             callback(err, result);
@@ -61,8 +61,8 @@ exports.deleteUser = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query =
-            'delete from categoryAlarm where userId = (select id from `user` where phoneNumber = (?)) ;'
-            + 'delete from SMSAlarm where userId = (select id from `user` where phoneNumber = (?)) ; '
+            'delete from categoryAlarm where userId = (select id from `user` where phoneNumber = ?) ;'
+            + 'delete from SMSAlarm where userId = (select id from `user` where phoneNumber = ?) ; '
             + 'DELETE FROM user WHERE phoneNumber = (?)';
         conn.query(Query, [data, data, data], function(err, result) {
             console.log('deleteUser result');
@@ -75,7 +75,7 @@ exports.deleteUser = function (data, callback) {
 exports.insertCategoryAlarm = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber = (?)), (select id from secondCategory where name = (?)))';
+        var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber = ? ), (select id from secondCategory where name = ? ))';
 
         conn.query(Query, [ data.phoneNumber, data.secondName ], function(err, result) {
             console.log('insertCategoryAlarm result');

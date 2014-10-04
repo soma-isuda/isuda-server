@@ -38,10 +38,10 @@ router.get('/productInfo', controller.getProductInfo);
 //example : http://172.16.100.171:3000/productInfo //total information
 
 // ---------------Alarm--------------- 
-router.get('/sAlarms', controller.getSMSAlarms);    //단일상품 알람 조회
+router.get('/sAlarms', controller.getSMSAlarms);        //단일상품 알람 조회
 router.get('/cAlarms',controller.getCategoryAlarms);    //중분류 알람 조회
-router.post('/sAlarms', controller.postAlarms); //단일상품 알람 등록
-router.post('/cAlarms', myPage.insertCategoryAlarm);//중분류 알람 등록
+router.post('/sAlarms', controller.postAlarms);         //단일상품 알람 등록
+router.post('/cAlarms', myPage.insertCategoryAlarm);    //중분류 알람 등록
 /*
 // ---------------Users -------------- 
 router.get('/users', controller.getUsers);
@@ -49,7 +49,7 @@ router.get('/users', controller.getUsers);
 router.put('/users', controller.putUsers);
 */
 router.post('/user', controller.postUsers);
-router.delete('/user', myPage.delUser);
+router.delete('/user', myPage.deleteUser);
 
 
 module.exports = router;
