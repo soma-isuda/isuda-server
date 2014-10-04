@@ -48,7 +48,8 @@ exports.deleteSMSAlarms = function (req, res) {
 exports.getSMSAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
     model.getSMSAlarms([phoneNumber], function (err, result) {
-        res.json(result);
+        if(err) console.log(err);
+        else res.json(result);
     });
 };
 

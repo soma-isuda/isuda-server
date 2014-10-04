@@ -138,6 +138,7 @@ exports.productInfo = function (callback) {
 exports.getSMSAlarms = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
+        console.log(data);
         var Query = 'SELECT * from productInfo where id = (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? ))';
         conn.query(Query, data, function(err, result) {
             console.log('getSMSAlarms result');
