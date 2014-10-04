@@ -58,7 +58,7 @@ exports.getSMSAlarms = function (req, res) {
 
 exports.getCategoryAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
-    var Query = 'SELECT * from productInfo where secondId = (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber=' + phoneNumber + '))';
+    var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber=' + phoneNumber + '))';
     connection.query(Query,
         function (error, data) {
             res.send(data);
