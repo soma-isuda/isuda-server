@@ -199,3 +199,15 @@ exports.postUsers = function (data, callback) {
     });
 };
 
+exports.deleteCategoryAlarms = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        console.log('data', data);
+        var Query = 'delete from categoryAlarm where secondId = ? and userId = (select id from `user` where phoneNumber = ? )';
+        conn.query(Query, data, function(err, result) {
+            console.log('deleteCategoryAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
