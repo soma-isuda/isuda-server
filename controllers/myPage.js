@@ -85,3 +85,11 @@ exports.getAlarmedCategory = function (req, res) {
     });
 };
 
+exports.deleteCategoryAlarms = function (req, res) {
+    var secondId = req.param('secondId');
+    var phoneNumber = req.param('phoneNumber');
+    model.deleteCategoryAlarms([secondId, phoneNumber], function (err, result) {
+        if(err) console.log(err);
+        else res.json({result:"success"});
+    });
+};
