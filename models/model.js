@@ -50,7 +50,7 @@ exports.getSecondCategory = function (data, callback) {
         if(err) console.error('err', err);
         var Query = 'SELECT * FROM secondCategory where firstId = ?';
         conn.query(Query, [data], function(err, result) {
-            console.log('getSecondCategoryAll result');
+            console.log('getSecondCategory result');
             callback(err, result);
         });
         db.pool.release(conn);
@@ -76,7 +76,8 @@ exports.insertCategoryAlarm = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber = ? ), (select id from secondCategory where name = ? ))';
-        conn.query(Query, [ data.phoneNumber, data.secondName ], function(err, result) {
+        console.log(data);
+	conn.query(Query, data, function(err, result) {
             console.log('insertCategoryAlarm result');
             callback(err, result);
         });
