@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
 
 /* request Contorller */
 var controller = require('../controllers/test');

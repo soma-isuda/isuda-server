@@ -17,17 +17,5 @@ exports.test = function (req, res) {
 };
 
 
-/* ---------------Alarm Servelet ====delete alarm Info--------------- 
-exports.delAlarms = function (req, res) {
-    var productId = req.param('productId');
-    var userId = req.param('userId');
-    var Query = 'Delete FROM SMSAlarm where productId = ' + productId + ' AND userId = ' + userId;
-    connection.query(Query, function (error, data) {
-        res.send(data);
-    })
-}*/
-
-
-
 
 
