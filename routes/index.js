@@ -49,6 +49,6 @@ router.get('/users', controller.getUsers);
 router.put('/users', controller.putUsers);
 */
 router.post('/user', controller.postUsers);
-router.delete('/user', myPage.delUsers);
+router.post('/delUser', myPage.delUser);
 
 module.exports = router;
