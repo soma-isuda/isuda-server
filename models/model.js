@@ -71,3 +71,16 @@ exports.deleteUser = function (data, callback) {
         db.pool.release(conn);
     });
 };
+
+exports.insertCategoryAlarm = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'insert into categoryAlarm values( (select id from `user` where phoneNumber =  (?) ), (?) )';
+
+        conn.query(Query, data, function(err, result) {
+            console.log('deleteUser result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
