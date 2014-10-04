@@ -148,7 +148,7 @@ exports.getCategoryAlarms = function (data, callback) {
 exports.getAlarmedCategory = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT id, firstId from secondCategory where id in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= "?" ))';
+        var Query = 'SELECT id, firstId from secondCategory where id in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
         conn.query(Query, data, function(err, result) {
             console.log('getCategoryAlarms result');
             callback(err, result);
