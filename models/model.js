@@ -83,3 +83,40 @@ exports.insertCategoryAlarm = function (data, callback) {
         db.pool.release(conn);
     });
 };
+
+exports.productInfoById = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM productInfo WHERE id = ?';
+        conn.query(Query, [data], function(err, result) {
+            console.log('productInfoById result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.productInfoBySecondId = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM productInfo WHERE secondId = ?';
+        conn.query(Query, [data], function(err, result) {
+            console.log('productInfoBySecondId result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.productInfo = function (callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM productInfo';
+        conn.query(Query, function(err, result) {
+            console.log('productInfo result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+

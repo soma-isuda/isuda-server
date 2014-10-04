@@ -7,21 +7,14 @@ var controller = require('../controllers/test');
 var mainPage = require('../controllers/mainPage');
 var schedulePage = require('../controllers/schedulePage');
 var myPage = require('../controllers/myPage');
+var selectPage =require('../controllers/selectPage');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'ISUDA - Welcome to Smart Homeshopping' });
 });
 
 router.get('/test', controller.test);
-
-/* test : nodejs - smart TV */
-router.get('/testDB',function(req,res){
-	/* get all data from 'testTable' table */
-	connection.query('SELECT * FROM imageTest',function(error,data){
-		res.send(data);
-	});
-});
 
 //-------------MAIN---------------
 router.get('/now', mainPage.now);
@@ -33,7 +26,7 @@ router.get('/getSecondCategory/:firstId', schedulePage.getSecondCategory);
 router.get('/getSecondCategory', schedulePage.getSecondCategory);
 
 // ---------------GET product Info--------------- 
-router.get('/productInfo', controller.getProductInfo);
+router.get('/productInfo', selectPage.getProductInfo);
 //example : http://172.16.100.171:3000/productInfo?id=2 //selected information
 //example : http://172.16.100.171:3000/productInfo //total information
 
