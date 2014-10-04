@@ -76,13 +76,15 @@ exports.insertCategoryAlarm = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = 'insert into categoryAlarm (userId, secondId ) values ( (select id from `user` where phoneNumber = "?" ), (select id from secondCategory where name = "?" ))';
-        conn.query(Query, function(err, result) {
+        conn.query(Query, data, function(err, result) {
             console.log('insertCategoryAlarm result');
             callback(err, result);
         });
         db.pool.release(conn);
     });
 };
+
+
 
 exports.productInfoById = function (data, callback) {
     db.pool.acquire(function(err, conn) {
