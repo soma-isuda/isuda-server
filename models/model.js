@@ -33,7 +33,6 @@ exports.getFirstCategory = function(data, callback){
     });
 };
 
-
 exports.getSecondCategoryAll = function (callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
@@ -52,6 +51,21 @@ exports.getSecondCategory = function (data, callback) {
         var Query = 'SELECT * FROM secondCategory where firstId = (?)';
         conn.query(Query, [data], function(err, result) {
             console.log('getSecondCategoryAll result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.deleteUser = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query =
+            'delete from categoryAlarm where userId = (select id from `user` where phoneNumber = (?)) ;'
+            + 'delete from SMSAlarm where userId = (select id from `user` where phoneNumber = (?)) ; '
+            + 'DELETE FROM user WHERE phoneNumber = (?)';
+        conn.query(Query, [data, data, data], function(err, result) {
+            console.log('deleteUser result');
             callback(err, result);
         });
         db.pool.release(conn);

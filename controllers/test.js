@@ -99,13 +99,5 @@ exports.postUsers = function (req, res) {
                res.send(data);
            });
 };
-//전화번호를 통해 사용자 정보를 삭제한다.
-exports.delUsers = function (req, res) {
-    var phoneNumber = req.param('phoneNumber');
-    var Query = "DELETE FROM user WHERE phoneNumber = '" + phoneNumber + "'";
-    connection.query(Query,
-        function (error, data) {
-            res.send(data);
-        })
-};
+
 

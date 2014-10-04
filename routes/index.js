@@ -6,6 +6,7 @@ var mysql = require('mysql');
 var controller = require('../controllers/test');
 var mainPage = require('../controllers/mainPage');
 var schedulePage = require('../controllers/schedulePage');
+var myPage = require('../controllers/myPage');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -48,6 +49,6 @@ router.get('/users', controller.getUsers);
 router.put('/users', controller.putUsers);
 */
 router.post('/user', controller.postUsers);
-router.delete('/user', controller.delUsers);
+router.delete('/user', myPage.delUsers);
 
 module.exports = router;
