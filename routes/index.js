@@ -4,6 +4,7 @@ var mysql = require('mysql');
 
 /* request Contorller */
 var controller = require('../controllers/test');
+var mainPage = require('../controllers/mainPage');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -21,7 +22,7 @@ router.get('/testDB',function(req,res){
 });
 
 //-------------MAIN---------------
-router.get('/now', controller.now);
+router.get('/now', mainPage.now);
 
 
 // ---------------GET category list--------------- 

@@ -36,5 +36,4 @@ db.process = process.on('exit', function(){
    });
 });
 
->>>>>>> c322647ff9b2975494e106529c8f7fb297b2d22f
 module.exports = db;

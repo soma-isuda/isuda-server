@@ -121,7 +121,7 @@ exports.postUsers = function (req, res) {
            function (error, data) {
                res.send(data);
            });
-}
+};
 //전화번호를 통해 사용자 정보를 삭제한다.
 exports.delUsers = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
@@ -130,19 +130,5 @@ exports.delUsers = function (req, res) {
         function (error, data) {
             res.send(data);
         })
-}
-
-
-
-
-exports.now = function (req, res) {
-    var Query = 'select * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
-        + ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
-        + '   where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0   '
-        +'   group by providerId      ) ) order by providerId ';
-
-    connection.query(Query,
-        function (error, data) {
-            res.send(data);
-        });
 };
+
