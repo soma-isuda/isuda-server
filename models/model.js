@@ -113,7 +113,7 @@ exports.productInfoById = function (data, callback) {
 exports.productInfoBySecondId = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT * FROM productInfo WHERE secondId = ? and productEndTime > now() ';
+        var Query = 'SELECT * FROM productInfo WHERE secondId = ? and productStartTime > now() ';
         conn.query(Query, [data], function(err, result) {
             console.log('productInfoBySecondId result');
             callback(err, result);
