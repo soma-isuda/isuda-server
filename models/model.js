@@ -60,9 +60,9 @@ exports.getSecondCategory = function (data, callback) {
 exports.deleteUser = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?) ; ';
-        Query += ' DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ; ';
-        Query += ' DELETE FROM user WHERE `phoneNumber` = ? ';
+        var Query = 'DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?) ; '
+        + ' DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ; '
+        + ' DELETE FROM user WHERE `phoneNumber` = ? ';
         conn.query(Query, [data, data, data], function(err, result) {
             console.log('deleteUser result');
             callback(err, result);
@@ -113,7 +113,7 @@ exports.productInfoById = function (data, callback) {
 exports.productInfoBySecondId = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT * FROM productInfo WHERE secondId = ?';
+        var Query = 'SELECT * FROM productInfo WHERE secondId = ? and productEndTime > now() ';
         conn.query(Query, [data], function(err, result) {
             console.log('productInfoBySecondId result');
             callback(err, result);
