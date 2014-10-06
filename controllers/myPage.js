@@ -4,22 +4,23 @@
 
 var model = require('../models/model');
 
+function sendResponse(err, result, res){
+    if(err) {
+        console.log(err);
+        res.json({result:"error"});
+    } else {
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
+    }
+}
 
 //전화번호를 통해 사용자 정보를 삭제한다.
 exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
     model.deleteUser(phoneNumber, function (err, result) {
-        if(err) {
-            console.log(err);
-            res.json({result:"error"});
-        }
-        else{
-            if(result.affectedRows == 1){
-                res.json({result:"success"});
-            }else{res.json({result:"error"});}
-        }
-
+        sendResponse(err, result, res);
     });
 };
 
@@ -29,10 +30,7 @@ exports.insertCategoryAlarm = function (req, res) {
     var firstId = req.param('firstId');
 
     model.insertCategoryAlarm([phoneNumber, secondName, firstId], function (err, result) {
-        if(err) console.log(err);
-        if(result.affectedRows == 1){
-            res.json({result:"success"});
-        }else{res.json({result:"error"});}
+        sendResponse(err, result, res);
     });
 };
 
@@ -41,10 +39,7 @@ exports.deleteSMSAlarms = function (req, res) {
     var productId = req.param('productId');
 
     model.deleteSMSAlarms([productId, phoneNumber], function (err, result) {
-        if(err) console.log(err);
-        if(result.affectedRows == 1){
-            res.json({result:"success"});
-        }else{res.json({result:"error"});}
+        sendResponse(err, result, res);
     });
 };
 
@@ -69,10 +64,7 @@ exports.postAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
     model.insertProductAlarms([productId, phoneNumber], function (err, result) {
-        if(err) console.log(err);
-        if(result.affectedRows == 1){
-            res.json({result:"success"});
-        }else{res.json({result:"error"});}
+        sendResponse(err, result, res);
     });
 };
 
@@ -80,10 +72,7 @@ exports.insertUsers = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
     model.insertUsers([phoneNumber, phoneNumber], function (err, result) {
-        if(err) console.log(err);
-        if(result.affectedRows == 1){
-            res.json({result:"success"});
-        }else{res.json({result:"error"});}
+        sendResponse(err, result, res);
     });
 };
 
@@ -99,9 +88,6 @@ exports.deleteCategoryAlarms = function (req, res) {
     var secondId = req.param('secondId');
     var phoneNumber = req.param('phoneNumber');
     model.deleteCategoryAlarms([secondId, phoneNumber], function (err, result) {
-        if(err) console.log(err);
-        if(result.affectedRows == 1){
-            res.json({result:"success"});
-        }else{res.json({result:"error"});}
+        sendResponse(err, result, res);
     });
 };
