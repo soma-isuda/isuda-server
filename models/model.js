@@ -72,7 +72,7 @@ exports.deleteUser = function (data, callback) {
 
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        conn.query('select count(*) cnt from users where userId=?', [userId], function(err, result) {
+
             async.waterfall([
                     function(done) {
                         conn.query('DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?)' , data, function(err, result) {
@@ -100,7 +100,7 @@ exports.deleteUser = function (data, callback) {
                 });
         });
         db.pool.release(conn);
-    });
+
 };
 
 exports.insertCategoryAlarm = function (data, callback) {
