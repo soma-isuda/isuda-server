@@ -95,8 +95,8 @@ exports.deleteUser = function (data, callback) {
                         });
                     }
                 ],
-                function(err, results) {
-                    callback(err, results);
+                function(err, result) {
+                    callback(err, result);
                 });
         });
         db.pool.release(conn);
