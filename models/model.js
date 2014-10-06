@@ -36,7 +36,7 @@ exports.getFirstCategory = function(data, callback){
 exports.getSecondCategoryAll = function (callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT * FROM secondCategory';
+        var Query = 'SELECT * FROM secondCategory where id > 0';
         conn.query(Query, function(err, result) {
             console.log('getSecondCategoryAll result');
             callback(err, result);
@@ -58,14 +58,46 @@ exports.getSecondCategory = function (data, callback) {
 };
 
 exports.deleteUser = function (data, callback) {
+//    db.pool.acquire(function(err, conn) {
+//        if(err) console.error('err', err);
+//        var Query = 'DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?) ; '
+//        + ' DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ; '
+//        + ' DELETE FROM user WHERE `phoneNumber` = ? ';
+//        conn.query(Query, [data, data, data], function(err, result) {
+//            console.log('deleteUser result');
+//            callback(err, result);
+//        });
+//        db.pool.release(conn);
+//    });
+
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?) ; '
-        + ' DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ; '
-        + ' DELETE FROM user WHERE `phoneNumber` = ? ';
-        conn.query(Query, [data, data, data], function(err, result) {
-            console.log('deleteUser result');
-            callback(err, result);
+        conn.query('select count(*) cnt from users where userId=?', [userId], function(err, result) {
+            async.waterfall([
+                    function(done) {
+                        conn.query('DELETE from categoryAlarm where `userId` = (select id from `user` where `phoneNumber` = ?)' , data, function(err, result) {
+                            console.log('DELETE categoryAlarm')
+                            done(null);
+                        });
+                    },
+
+                    function(done) {
+                        conn.query('DELETE from SMSAlarm where `userId` = (select id from `user` where `phoneNumber` = ? ) ', data, function(err, result) {
+                            console.log('DELETE SMSAlarm');
+                            done(null);
+                        });
+                    },
+
+                    function(done) {
+                        conn.query('DELETE FROM user WHERE `phoneNumber` = ? ', data, function(err, result) {
+                            console.log('DELETE user');
+                            done(null);
+                        });
+                    }
+                ],
+                function(err, results) {
+                    callback(err, results);
+                });
         });
         db.pool.release(conn);
     });
