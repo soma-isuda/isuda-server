@@ -36,6 +36,8 @@ exports.deleteSMSAlarms = function (req, res) {
     var productId = req.param('productId');
 
     model.deleteSMSAlarms([productId, phoneNumber], function (err, result) {
+       console.log('result', result);
+       console.log('error', err);
        if(err){
            console.log(err);
            res.json({result:"error"});
