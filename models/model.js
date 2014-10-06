@@ -98,8 +98,9 @@ exports.deleteUser = function (data, callback) {
                 function(err, result) {
                     callback(err, result);
                 });
+             db.pool.release(conn);
         });
-        db.pool.release(conn);
+
 
 };
 
