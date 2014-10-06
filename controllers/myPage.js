@@ -9,11 +9,9 @@ var model = require('../models/model');
 exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
     model.deleteUser(phoneNumber, function (err, result) {
-        if(err){
-            console.log(err);
-        }else{
-            res.json({result : "success"});
-        }
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };
 
@@ -23,11 +21,9 @@ exports.insertCategoryAlarm = function (req, res) {
     var firstId = req.param('firstId');
 
     model.insertCategoryAlarm([phoneNumber, secondName, firstId], function (err, result) {
-        if(err){
-            console.log(err);
-        }else{
-            res.json({result : "success"});
-        }
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };
 
@@ -36,27 +32,24 @@ exports.deleteSMSAlarms = function (req, res) {
     var productId = req.param('productId');
 
     model.deleteSMSAlarms([productId, phoneNumber], function (err, result) {
-       console.log('result', result);
-       console.log('error', err);
-       if(err){
-           console.log(err);
-           res.json({result:"error"});
-       }
-       else res.json({result:"success"});
+        if(err) console.log(err);
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };
 
-exports.getSMSAlarms = function (req, res) {
+exports.selectSMSAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
-    model.getSMSAlarms([phoneNumber], function (err, result) {
+    model.selectSMSAlarms([phoneNumber], function (err, result) {
         if(err) console.log(err);
         else res.json(result);
     });
 };
 
-exports.getCategoryAlarms = function (req, res) {
+exports.selectCategoryAlarms = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
-    model.getCategoryAlarms([phoneNumber], function (err, result) {
+    model.selectCategoryAlarms([phoneNumber], function (err, result) {
         res.json(result);
     });
 
@@ -66,23 +59,27 @@ exports.postAlarms = function (req, res) {
     var productId = req.param('productId');
     var phoneNumber = req.param('phoneNumber');
 
-    model.postAlarms([productId, phoneNumber], function (err, result) {
-        res.json(result);
+    model.insertProductAlarms([productId, phoneNumber], function (err, result) {
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };
 
-exports.postUsers = function (req, res) {
+exports.insertUsers = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
-    model.postUsers([phoneNumber, phoneNumber], function (err, result) {
-        res.json(result);
+    model.insertUsers([phoneNumber, phoneNumber], function (err, result) {
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };
 
 exports.getAlarmedCategory = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
-    model.getAlarmedCategory([phoneNumber], function (err, result) {
+    model.selectAlarmedCategory([phoneNumber], function (err, result) {
         res.json(result);
     });
 };
@@ -91,7 +88,8 @@ exports.deleteCategoryAlarms = function (req, res) {
     var secondId = req.param('secondId');
     var phoneNumber = req.param('phoneNumber');
     model.deleteCategoryAlarms([secondId, phoneNumber], function (err, result) {
-        if(err) console.log(err);
-        else res.json({result:"success"});
+        if(result.affectedRows == 1){
+            res.json({result:"success"});
+        }else{res.json({result:"error"});}
     });
 };

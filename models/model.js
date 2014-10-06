@@ -148,44 +148,44 @@ exports.productInfo = function (callback) {
 };
 
 
-exports.getSMSAlarms = function (data, callback) {
+exports.selectSMSAlarms = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         console.log(data);
         var Query = 'SELECT * from productInfo where id in (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? ))';
         conn.query(Query, data, function(err, result) {
-            console.log('getSMSAlarms result');
+            console.log('selectSMSAlarms result');
             callback(err, result);
         });
         db.pool.release(conn);
     });
 };
 
-exports.getCategoryAlarms = function (data, callback) {
+exports.selectCategoryAlarms = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
         conn.query(Query, data, function(err, result) {
-            console.log('getCategoryAlarms result');
+            console.log('selectCategoryAlarms result');
             callback(err, result);
         });
         db.pool.release(conn);
     });
 };
 
-exports.getAlarmedCategory = function (data, callback) {
+exports.selectAlarmedCategory = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = 'SELECT s.id secondId, f.id firstId, s.name secondName, f.name firstName  from secondCategory s, firstCategory f where s.firstId = f.id and  s.id in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
         conn.query(Query, data, function(err, result) {
-            console.log('getAlarmedCategory result');
+            console.log('selectAlarmedCategory result');
             callback(err, result);
         });
         db.pool.release(conn);
     });
 };
 
-exports.postAlarms = function(data, callback) {
+exports.insertProductAlarms = function(data, callback) {
     //var Query = "INSERT SMSAlarm (productId,userId) SELECT '3', (SELECT id FROM user WHERE phoneNumber = '01090897672')";
     //var Query = "INSERT SMSAlarm (productId,userId) SELECT '"+productId+ "', (userId) FROM user WHERE phoneNumber = '"+phoneNumber+"'";
 
@@ -193,19 +193,19 @@ exports.postAlarms = function(data, callback) {
         if(err) console.error('err', err);
         var Query = "INSERT SMSAlarm (productId,userId) SELECT ? , (SELECT id FROM user WHERE phoneNumber = ? )";
         conn.query(Query, data, function(err, result) {
-            console.log('postAlarms result');
+            console.log('insertProductAlarms result');
             callback(err, result);
         });
         db.pool.release(conn);
     });
 };
 
-exports.postUsers = function (data, callback) {
+exports.insertUsers = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = "INSERT INTO user ( phoneNumber,characterNum,setAlarm ) SELECT '?' ,'0','1' FROM dual WHERE NOT EXISTS (SELECT *  FROM user WHERE  phoneNumber =  '?' )";
         conn.query(Query, data, function(err, result) {
-            console.log('postUsers result');
+            console.log('insertUsers result');
             callback(err, result);
         });
         db.pool.release(conn);
