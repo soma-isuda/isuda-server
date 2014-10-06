@@ -12,9 +12,7 @@ exports.deleteUser = function (req, res) {
         if(err){
             console.log(err);
         }else{
-            res.json({
-                result : "success"
-            });
+            res.json({result : "success"});
         }
     });
 };
@@ -28,9 +26,7 @@ exports.insertCategoryAlarm = function (req, res) {
         if(err){
             console.log(err);
         }else{
-            res.json({
-                result : "success"
-            });
+            res.json({result : "success"});
         }
     });
 };
@@ -40,7 +36,10 @@ exports.deleteSMSAlarms = function (req, res) {
     var productId = req.param('productId');
 
     model.deleteSMSAlarms([productId, phoneNumber], function (err, result) {
-       if(err) console.log(err);
+       if(err){
+           console.log(err);
+           res.json({result:"error"});
+       }
        else res.json({result:"success"});
     });
 };
