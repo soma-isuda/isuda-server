@@ -10,7 +10,10 @@ exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
     model.deleteUser(phoneNumber, function (err, result) {
-        if(err) console.log(err)
+        if(err) {
+            console.log(err);
+            res.json({result:"error"});
+        }
         else{
             if(result.affectedRows == 1){
                 res.json({result:"success"});
