@@ -91,7 +91,7 @@ exports.deleteUser = function (data, callback) {
                     function(done) {
                         conn.query('DELETE FROM user WHERE `phoneNumber` = ? ', data, function(err, result) {
                             console.log('DELETE user');
-                            done(null);
+                            done(null, result);
                         });
                     }
                 ],
