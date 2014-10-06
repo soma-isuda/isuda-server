@@ -6,6 +6,7 @@ var model = require('../models/model');
 exports.getProductInfo = function (req, res) {
     var secondId = req.param('secondId');
     var productId = req.param('productId');
+    var firstId = req.param('firstId');
     console.log(productId);
 
     if (productId) {
@@ -19,6 +20,12 @@ exports.getProductInfo = function (req, res) {
     else if (secondId) {
         //secondId
         model.productInfoBySecondId(secondId, function (err, result) {
+            if(err) console.log(err);
+            res.json(result);
+        });
+    }
+    else if(firstId){
+        model.productInfoByFirstId(firstId, function (err, result) {
             if(err) console.log(err);
             res.json(result);
         });

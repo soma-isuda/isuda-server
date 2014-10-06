@@ -122,6 +122,19 @@ exports.productInfoBySecondId = function (data, callback) {
     });
 };
 
+exports.productInfoByFirstId = function (data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        var Query = 'SELECT * FROM productInfo WHERE firstId=? and productStartTime > now()';
+        conn.query(Query, [data], function(err, result) {
+            console.log('productInfoByFirstId result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+
 exports.productInfo = function (callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
