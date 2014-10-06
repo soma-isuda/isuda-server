@@ -19,7 +19,7 @@ function sendResponse(err, result, res){
 exports.deleteUser = function (req, res) {
     var phoneNumber = req.param('phoneNumber');
 
-    model.deleteUser(phoneNumber, function (err, result) {
+    model.deleteUser([phoneNumber], function (err, result) {
         sendResponse(err, result, res);
     });
 };
