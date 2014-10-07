@@ -236,7 +236,7 @@ exports.insertProductAlarms = function(data, callback) {
 exports.insertUsers = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = "INSERT INTO user ( phoneNumber,characterNum,setAlarm ) SELECT '?' ,'0','1' FROM dual WHERE NOT EXISTS (SELECT *  FROM user WHERE  phoneNumber =  '?' )";
+        var Query = "INSERT INTO user ( phoneNumber,characterNum,setAlarm ) SELECT ? ,'0','1' FROM dual WHERE NOT EXISTS (SELECT *  FROM user WHERE  phoneNumber =  ? )";
         conn.query(Query, data, function(err, result) {
             console.log('insertUsers result');
             callback(err, result);
