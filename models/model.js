@@ -171,7 +171,7 @@ exports.productInfoByFirstId = function (data, callback) {
 exports.productInfo = function (callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        var Query = 'SELECT * FROM productInfo where productStartTime > now() ';
+        var Query = 'SELECT * FROM productInfo where productStartTime > now() order by productStartTime ';
         conn.query(Query, function(err, result) {
             console.log('productInfo result');
             callback(err, result);
