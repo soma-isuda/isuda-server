@@ -13,7 +13,7 @@ exports.now = function (req, res) {
             res.send(result);
         });
     }else{
-        model.now(idx, function (err, result) {
+        model.now(function (err, result) {
             if (err) console.log(err);
             res.send(result);
 
