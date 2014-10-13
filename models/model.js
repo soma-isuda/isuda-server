@@ -248,10 +248,37 @@ exports.insertUsers = function (data, callback) {
 exports.deleteCategoryAlarms = function (data, callback) {
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
-        console.log('data', data);
+//        console.log('data', data);
         var Query = 'delete from categoryAlarm where secondId = ? and userId = (select id from `user` where phoneNumber = ? )';
         conn.query(Query, data, function(err, result) {
             console.log('deleteCategoryAlarms result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.selectProductInfoByInterestingCategory = function (data, callback) {
+    db.pool.acquire(function (err, conn) {
+       if(err) console.err('err', err);
+        var Query = 'select * from productInfo where secondId in (select secondId from categoryAlarm where userId = (select userId from `user` where phoneNumber = ?)) and productStartTime > now() limit 3';
+        conn.query(Query, data, function(err, result){
+            console.log('selectProductInfoByInterestingCategory');
+            callback(err, result);
+        });
+
+        db.pool.release(conn);
+    });
+};
+
+
+
+exports.getRecommendedProducts = function (data, callback) {
+    db.pool.acquire(function (err, conn) {
+        if(err) console.err('err', err);
+        var Query = 'select * from productInfo where secondId in (select secondId from productInfo where id = ?) and productEndTime > now() limit 1';
+        conn.query(Query, data, function(err, result){
+            console.log('getRecommendedProducts');
             callback(err, result);
         });
         db.pool.release(conn);
