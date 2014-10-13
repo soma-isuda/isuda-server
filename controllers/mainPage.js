@@ -6,11 +6,11 @@ var model = require('../models/model');
 
 exports.now = function (req, res) {
     var providerNum = req.param('providerNum');
-
-    model.now(function (err, result) {
+    var idx = Number(providerNum);
+    model.now(idx, function (err, result) {
         if (err) console.log(err);
         if(providerId){
-            res.send(result[providerNum]);
+            res.send(result[idx]);
         }else{
             res.send(result);
         }

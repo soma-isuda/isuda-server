@@ -5,7 +5,7 @@
 var async   = require('async'),
     db      = require('../config/database');
 
-exports.now = function (callback){
+exports.now = function (data, callback){
     db.pool.acquire(function(err, conn) {
         if(err) console.error('err', err);
         var Query = 'select * from productInfo where (      (timediff(now(), productStartTime), providerId)  '
