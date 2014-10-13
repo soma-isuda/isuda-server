@@ -3,8 +3,8 @@
  */
 
 var model = require('../models/model');
-
-exports.now = function (req, res, productEndTime) {
+var productEndTime = 1;
+exports.now = function (req, res) {
     var providerNum = req.param('providerNum');
     productEndTime ++;
     if(providerNum){

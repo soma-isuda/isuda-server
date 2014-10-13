@@ -16,8 +16,8 @@ router.get('/', function(req, res) {
 router.get('/test', controller.test);
 
 //-------------MAIN---------------
-var productEndTime = 1;
-router.get('/now', mainPage.now(req, res, productEndTime));
+
+router.get('/now', mainPage.now);
 router.get('/userProducts', mainPage.getUsersInterestingProducts);
 router.get('/recommendedProducts', selectPage.getRecommendedProducts);
 
