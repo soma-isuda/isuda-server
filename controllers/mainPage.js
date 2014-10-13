@@ -3,22 +3,56 @@
  */
 
 var model = require('../models/model');
-var productEndTime = 1;
-exports.now = function (req, res) {
-    var providerNum = req.param('providerNum');
-    productEndTime ++;
-    if(providerNum){
-        model.nowOne(Number(providerNum), function (err, result) {
-           if(err) console.log(err);
-            res.send(result);
-        });
-    }else{
-        model.now(function (err, result) {
-            if (err) console.log(err);
-            res.send(result);
+var befTime = null;
+var befResults = null;
+/*
+(function (){
+	model.now(function (err, result) {
+		if (err) console.log(err);
+		befResults = result;
+		var minTime = result[0].productEndTime;
+		for(var i=1; i<result.length; i++){
+			if(minTime > result[i].productEndTime)
+				minTime = result[i].productEndTime;
+		}
+		befTime = minTime;
+	});
+})();
+*/
 
-        });
-    }
+exports.now = function (req, res) {
+	console.log('Accessed to NOW');
+	var providerNum = req.param('providerNum');
+
+	if(new Date() > befTime){	//need to get NEW NOW DATA
+		model.now(function (err, result) {
+		    if (err) console.log(err);
+
+		    befResults = result;
+
+			if(providerNum){
+				res.send(befResults[providerNum]);
+			}else{
+				res.send(befResults);
+			}
+
+		    var minTime = result[0].productEndTime;
+		    for(var i=1; i<result.length; i++){
+			if(minTime > result[i].productEndTime)
+				minTime = result[i].productEndTime;
+		    }
+		    befTime = minTime;
+		});
+	}else{
+		if(providerNum){
+			res.send(befResults[providerNum]);
+		}else{
+			res.send(befResults);
+		}
+	}
+	
+
+    
 };
 
 exports.getUsersInterestingProducts = function (req, res) {
