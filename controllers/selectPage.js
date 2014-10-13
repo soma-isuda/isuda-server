@@ -40,8 +40,8 @@ exports.getProductInfo = function (req, res) {
 };
 
 exports.getRecommendedProducts = function (req, res){
-    var productId = req.param('productId');
-    model.getRecommendedProducts([productInfo], function (err, result) {
+    var id = req.param('id');
+    model.getRecommendedProducts([id], function (err, result) {
         if(err) console.log(err);
         res.json(result);
     });
