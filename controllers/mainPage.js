@@ -4,9 +4,9 @@
 
 var model = require('../models/model');
 
-exports.now = function (req, res) {
+exports.now = function (req, res, productEndTime) {
     var providerNum = req.param('providerNum');
-
+    productEndTime ++;
     if(providerNum){
         model.nowOne(Number(providerNum), function (err, result) {
            if(err) console.log(err);
