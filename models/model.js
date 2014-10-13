@@ -303,7 +303,7 @@ exports.getRecommendedProducts = function (data, callback) {
 exports.selectRandomProducts = function (callback) {
     db.pool.acquire(function (err, conn) {
         if(err) console.err('err', err);
-        var Query = 'select * from productInfo where productEndTime > now() order by rand() limit 3';
+        var Query = 'select * from productInfo where productStartTime > now() order by rand() limit 3';
         conn.query(Query, function(err, result){
             console.log('selectRandomProducts');
             callback(err, result);
@@ -315,7 +315,7 @@ exports.selectRandomProducts = function (callback) {
 exports.selectOneRandomProduct = function (callback) {
     db.pool.acquire(function (err, conn) {
         if(err) console.err('err', err);
-        var Query = 'select * from productInfo where productEndTime > now() order by rand() limit 1';
+        var Query = 'select * from productInfo where productStartTime > now() order by rand() limit 1';
         conn.query(Query, function(err, result){
             console.log('selectOneRandomProduct');
             callback(err, result);
