@@ -261,17 +261,16 @@ exports.deleteCategoryAlarms = function (data, callback) {
 exports.selectProductInfoByInterestingCategory = function (data, callback) {
     db.pool.acquire(function (err, conn) {
        if(err) console.err('err', err);
-        var Query = 'select * from productInfo where secondId in (select secondId from categoryAlarm where userId = (select userId from `user` where phoneNumber = ?)) and productStartTime > now() limit 3';
+        var Query = 'select * from productInfo where secondId in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber = ?)) and productStartTime > now()  order by rand()  limit 3';
         conn.query(Query, data, function(err, result){
             console.log('selectProductInfoByInterestingCategory');
+            console.log(data);
             callback(err, result);
-        });
+        }); //예외 : 관심 카테고리 상품의 갯수가 3개보다 적을 때
 
         db.pool.release(conn);
     });
 };
-
-
 
 exports.getRecommendedProducts = function (data, callback) {
     db.pool.acquire(function (err, conn) {
@@ -279,6 +278,44 @@ exports.getRecommendedProducts = function (data, callback) {
         var Query = 'select * from productInfo where secondId in (select secondId from productInfo where id = ?) and productEndTime > now() limit 1';
         conn.query(Query, data, function(err, result){
             console.log('getRecommendedProducts');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.selectRandomProducts = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if(err) console.err('err', err);
+        var Query = 'select * from productInfo where productEndTime > now() order by rand() limit 3';
+        conn.query(Query, function(err, result){
+            console.log('selectRandomProducts');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.selectOneRandomProduct = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if(err) console.err('err', err);
+        var Query = 'select * from productInfo where productEndTime > now() order by rand() limit 1';
+        conn.query(Query, function(err, result){
+            console.log('selectOneRandomProduct');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+
+
+exports.selectProductCount = function (data, callback) {
+    db.pool.acquire(function (err, conn) {
+        if(err) console.err('err', err);
+        var Query = 'select count(id) count from productInfo where secondId in (select secondId from categoryAlarm where userId = (select id from `user` where phoneNumber = ?)) and productStartTime > now()';
+        conn.query(Query, data, function(err, result){
+            console.log('selectProductCount');
             callback(err, result);
         });
         db.pool.release(conn);

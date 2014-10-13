@@ -43,6 +43,13 @@ exports.getRecommendedProducts = function (req, res){
     var id = req.param('id');
     model.getRecommendedProducts([id], function (err, result) {
         if(err) console.log(err);
-        res.json(result);
+        if(result.length != 0)
+            res.json(result);
+        else{
+            model.selectOneRandomProduct(function (err, result) {
+                if(err) console.log(err);
+                res.json(result);
+            });
+        }
     });
 };
