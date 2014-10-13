@@ -6,16 +6,19 @@ var model = require('../models/model');
 
 exports.now = function (req, res) {
     var providerNum = req.param('providerNum');
-    var idx = Number(providerNum);
-    model.now(idx, function (err, result) {
-        if (err) console.log(err);
-        if(providerId){
-            res.send(result[idx]);
-        }else{
-            res.send(result);
-        }
-    });
 
+    if(providerNum){
+        model.nowOne(Number(providerNum), function (err, result) {
+           if(err) console.log(err);
+            res.send(result);
+        });
+    }else{
+        model.now(idx, function (err, result) {
+            if (err) console.log(err);
+            res.send(result);
+
+        });
+    }
 };
 
 exports.getUsersInterestingProducts = function (req, res) {
