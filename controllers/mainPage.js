@@ -5,10 +5,17 @@
 var model = require('../models/model');
 
 exports.now = function (req, res) {
+    var providerNum = req.param('providerNum');
+
     model.now(function (err, result) {
         if (err) console.log(err);
-        res.send(result);
+        if(providerId){
+            res.send(result[providerNum]);
+        }else{
+            res.send(result);
+        }
     });
+
 };
 
 exports.getUsersInterestingProducts = function (req, res) {
