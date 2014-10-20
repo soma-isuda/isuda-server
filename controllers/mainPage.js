@@ -23,8 +23,9 @@ var befResults = null;
 exports.now = function (req, res) {
 	console.log('Accessed to NOW');
 	var providerNum = req.param('providerNum');
-
-	if(new Date() > befTime){	//need to get NEW NOW DATA
+	var nowTime = new Date();
+	console.log('nowTime', nowTime, ' befTime', befTime);
+	if(nowTime > befTime){	//need to get NEW NOW DATA
 		model.now(function (err, result) {
 		    if (err) console.log(err);
 
@@ -42,6 +43,7 @@ exports.now = function (req, res) {
 				minTime = result[i].productEndTime;
 		    }
 		    befTime = minTime;
+
 		});
 	}else{
 		if(providerNum){
