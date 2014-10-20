@@ -90,3 +90,10 @@ exports.getUsersInterestingProducts = function (req, res) {
         });
     }
 };
+
+exports.getProviders = function (req, res) {
+    model.getProviders(function (err, result) {
+        if (err) console.log(err);
+        res.send(result);
+    });
+};
