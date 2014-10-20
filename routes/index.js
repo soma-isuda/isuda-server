@@ -20,6 +20,7 @@ router.get('/test', controller.test);
 router.get('/now', mainPage.now);
 router.get('/userProducts', mainPage.getUsersInterestingProducts);
 router.get('/recommendedProducts', selectPage.getRecommendedProducts);
+router.get('/getProviders', mainPage.getProviders);
 
 // ---------------GET category list--------------- 
 router.get('/getFirstCategory', schedulePage.getFirstCategory);

@@ -51,6 +51,18 @@ exports.getFirstCategory = function (data, callback) {
     });
 };
 
+exports.getProviders = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if (err) console.error('err', err);
+        var Query = 'SELECT * FROM provider';
+        conn.query(Query, function (err, result) {
+            console.log('getProviders');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
 exports.getSecondCategoryAll = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
