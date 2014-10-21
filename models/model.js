@@ -305,7 +305,7 @@ exports.selectProductInfoByInterestingCategory = function (data, callback) {
 exports.getRecommendedProducts = function (data, callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.err('err', err);
-        var Query = 'select * from productInfo where secondId in (select secondId from productInfo where id = ?) and productEndTime > now() limit 1';
+        var Query = 'select * from productInfo where productEndTime > now() and secondId = (select secondId from productInfo where id = ? and id != ? order by rand() limit 1';
         conn.query(Query, data, function (err, result) {
             console.log('getRecommendedProducts');
             callback(err, result);
