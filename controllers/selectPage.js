@@ -41,7 +41,7 @@ exports.getProductInfo = function (req, res) {
 
 exports.getRecommendedProducts = function (req, res){
     var id = req.param('id');
-    model.getRecommendedProducts([id], function (err, result) {
+    model.getRecommendedProducts([id, id], function (err, result) {
         if(err) console.log(err);
         if(result.length != 0)
             res.json(result);
