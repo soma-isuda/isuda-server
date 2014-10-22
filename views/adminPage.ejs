@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <link rel='stylesheet' href='/stylesheets/admin.css' />
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr align="center">
+        <th >id</th>
+        <th >productStartTime</th>
+        <th >productEndTime</th>
+        <th >productName</th>
+        <th >productPrice</th>
+        <th >providerId</th>
+        <th >Page</th>
+        <th >Thumbnail</th>
+        <th >Image</th>
+        <th >firstCategory</th>
+        <th >secondCategory</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <% for(var i=0; i<results.length; i++){ var data = results[i]%>
+
+
+    <tr align="center">
+        <td width="100"><%=data.id %></td>
+        <td width="250"><%=data.productStartTime.toISOString() %></td>
+        <td width="250"><%=data.productEndTime.toISOString() %></td>
+        <td width="500"><%=data.productName %></td>
+        <td width="50"><%=data.productPrice %></td>
+        <td width="10"><%=data.providerId %></td>
+        <td ><a href=<%=data.productPgURL%>>Page</a></td>
+        <td ><a href=<%=data.productImgURL%>>Thumbnail</a></td>
+        <% var address = "/pageShots/" + data.id %>
+        <td ><a href=<%=address%> >Image</a></td>
+        <td ><%=data.firstId %></td>
+        <td ><%=data.secondId %></td>
+
+    </tr>
+    <% } %>
+
+
+    </tbody>
+</table>
+
+</body>
+
+</html>

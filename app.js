@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var adminRoutes = require('./routes/admin');
 var app = express();
 
 // view engine setup
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('/home/isuda/serverdir/static'));  //folder for detail images shots
 app.use('/', routes);
+app.use('/admin', adminRoutes);
 
 // from www
 app.set('port', process.env.PORT || 3000);

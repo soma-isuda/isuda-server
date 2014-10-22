@@ -1,0 +1,13 @@
+/*for table*/
+table {border-collapse:collapse}
+tbody tr:hover {background:#F3F5BB}
+tbody tr {background:#f9f9f9}
+thead tr {background:#f2f9f2}
+
+body {
+    /* jQuery Style font*/
+    font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1.1em;
+    margin: 0;
+    padding: 0;
+    /*   background-color: aqua; */
+}
