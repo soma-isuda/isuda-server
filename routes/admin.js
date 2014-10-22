@@ -22,11 +22,7 @@ router.post('/', function(req, res) {
     }
 });
 
-router.get('/checkImg', function(req, res) {
-    console.log('checkImg');
-    var id = req.param('id');
-    res.render('adminImage', {'address' : "/pageShots/" + id + ".jpeg"})
-});
+
 
 module.exports = router;
 
