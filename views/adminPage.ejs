@@ -32,14 +32,19 @@
         <td width="250"><%=data.productStartTime.toISOString() %></td>
         <td width="250"><%=data.productEndTime.toISOString() %></td>
         <td width="500"><%=data.productName %></td>
-        <td width="50"><%=data.productPrice %></td>
+        <td ><%=data.productPrice %></td>
         <td width="10"><%=data.providerId %></td>
         <td ><a href=<%=data.productPgURL%>>Page</a></td>
         <td ><a href=<%=data.productImgURL%>>Thumbnail</a></td>
-        <% var address = "/pageShots/" + data.id + ".jpeg" %>
-        <td ><a href=<%=address%> >Image</a></td>
-        <td ><%=data.firstId %></td>
-        <td ><%=data.secondId %></td>
+        <% if(data.providerId == "NS"){ %>
+        <td >NOTHING</td>
+        <% } else { %>
+        <% var go = '/admin/checkImg?id=' + data.id %>
+        <td ><a href=<%=go%> >Image</a></td>
+        <%}%>
+
+        <td width="10"><%=data.firstId %></td>
+        <td width="10"><%=data.secondId %></td>
 
     </tr>
     <% } %>
