@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 /* request Contorller */
-var controller = require('../controllers/test');
 var mainPage = require('../controllers/mainPage');
 var schedulePage = require('../controllers/schedulePage');
 var myPage = require('../controllers/myPage');
@@ -10,10 +9,8 @@ var selectPage =require('../controllers/selectPage');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'ISUDA - Welcome to Smart Homeshopping' });
+  res.render('index', { title: 'ISUDA - Smart Homeshopping' });
 });
-
-router.get('/test', controller.test);
 
 //-------------MAIN---------------
 
