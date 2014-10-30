@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <link rel='stylesheet' href='/stylesheets/admin.css'/>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<header>
+
+</header>
+<nav>
+    <ul>
+        <form method="post" name="mvForm"></form>
+        <li><a href="javascript:moveHandler(1)">홈쇼핑 편성표 관리</a></li>
+        <li><a href="javascript:moveHandler(2)">ISUDA 편성표 관리</a></li>
+        <li><a href="javascript:moveHandler(3)">Provider 관리</a></li>
+        <li><a href="javascript:moveHandler(4)">회원 관리</a></li>
+        <li><a href="javascript:moveHandler(5)">크롤링</a></li>
+    </ul>
+</nav>
+
+<section>
+
+</section>
+
+<article>
+
+</article>
+
+
+<script type="text/javascript">
+    function moveHandler(index) {
+        var mvForm = document.mvForm;
+        switch (index) {
+            case 1:
+                mvForm.action = '/admin/mngProviderData';
+                break;
+            case 2:
+                mvForm.action = '/admin/mngISUDAData';
+                break;
+            case 3:
+                mvForm.action = '/admin/mngProvider';
+                break;
+            case 4:
+                mvForm.action = '/admin/mngUsers';
+                break;
+            case 5:
+                mvForm.action = '/admin/exeCrawling';
+                break;
+        }
+        mvForm.submit();
+    }
+
+</script>
+</body>
+
+</html>

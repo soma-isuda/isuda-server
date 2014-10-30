@@ -1,0 +1,13 @@
+<% include ../layout/header.ejs%>
+
+<form method="post" enctype="multipart/form-data" action="/admin/insertISUDAData">
+    productName : <input type="text" name="productName"/><br>
+    productPrice : <input type="text" name="productPrice"/><br>
+    productPgURL : <input type="text" name="productPgURL"/><br>
+    manufacturerName : <input type="text" name="manufacturerName"/><br>
+    상품 대표 이미지 : <input type="file" name="productImg" /><br>
+    상품 페이지 이미지 : <input type="file" name="productPgImg" /><br>
+    <input type="submit"/>
+</form>
+
+<% include ../layout/footer.ejs%>

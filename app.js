@@ -5,9 +5,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+//var session = require('express-session');
 
 var routes = require('./routes/index');
 var adminRoutes = require('./routes/admin');
+var mobileRoutes = require('./routes/mobile');
 var app = express();
 
 // view engine setup
@@ -19,12 +22,17 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({
+    dest : '../static/upload'
+    }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('/home/isuda/serverdir/static'));  //folder for detail images shots
+//app.use(session);
+
 app.use('/', routes);
 app.use('/admin', adminRoutes);
-
+app.use('/m', mobileRoutes);
 // from www
 app.set('port', process.env.PORT || 3000);
 

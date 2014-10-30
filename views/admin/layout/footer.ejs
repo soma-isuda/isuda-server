@@ -1,0 +1,31 @@
+</article>
+
+<script type="text/javascript">
+
+    function moveHandler(index) {
+        var mvForm = document.mvForm;
+        switch (index) {
+            case 1:
+                mvForm.action = '/admin/mngProviderData';
+                break;
+            case 2:
+                mvForm.action = '/admin/mngISUDAData';
+                break;
+            case 3:
+                mvForm.action = '/admin/mngProvider';
+                break;
+            case 4:
+                mvForm.action = '/admin/mngUsers';
+                break;
+            case 5:
+                mvForm.action = '/admin/exeCrawling';
+                break;
+        }
+        mvForm.submit();
+//        $('header h1').text($('ul li a')[index-1].innerHTML);
+    }
+
+</script>
+</body>
+
+</html>
