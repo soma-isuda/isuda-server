@@ -12,11 +12,7 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'ISUDA - Smart Homeshopping' });
 });
 
-router.get('/admin/checkImg', function(req, res) {
-    console.log('checkImg');
-    var id = req.param('id');
-    res.render('adminImage', {'address' : "/pageShots/" + id + ".jpeg"})
-});
+
 
 //-------------MAIN---------------
 
