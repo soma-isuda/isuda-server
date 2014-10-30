@@ -55,6 +55,7 @@ router.post('/insertISUDAData', function (req, res) {
     var productPrice = req.body.productPrice;
     var productPgURL = req.body.productPgURL;
     var manufacturerName = req.body.manufacturerName;
+    var playURL = req.body.playURL;
     var productImg = req.files.productImg;
     var productPgImg = req.files.productPgImg;
     var productImgURL = null, productPgImgURL = null;
@@ -82,7 +83,7 @@ router.post('/insertISUDAData', function (req, res) {
             ],
             function (err, result) {
 //                console.log(productPgImg.path, productImg.path);
-                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL ], function (err, result) {
+                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL ], function (err, result) {
                     if (err) {
                         console.log(err);
                         res.send("데이터베이스 에러");
