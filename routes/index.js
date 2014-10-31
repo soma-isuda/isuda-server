@@ -28,6 +28,7 @@ router.get('/getSecondCategory', schedulePage.getSecondCategory);
 
 // ---------------GET product Info--------------- 
 router.get('/productInfo', selectPage.getProductInfo);
+router.get('/productISUDA', selectPage.getProductISUDA);
 //example : http://172.16.100.171:3000/productInfo?id=2 //selected information
 //example : http://172.16.100.171:3000/productInfo //total information
 

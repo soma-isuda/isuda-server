@@ -362,3 +362,15 @@ exports.selectProductCount = function (data, callback) {
         db.pool.release(conn);
     });
 };
+
+exports.selectProductISUDA = function (callback) {
+    db.pool.acquire(function (err, conn) {
+       if(err) console.err('err', err);
+        var Query = 'select * from productISUDA';
+        conn.query(Query, function (err, result) {
+            console.log('selectProductISUDA');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};

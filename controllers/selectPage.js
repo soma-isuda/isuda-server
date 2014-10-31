@@ -53,3 +53,10 @@ exports.getRecommendedProducts = function (req, res){
         }
     });
 };
+
+exports.getProductISUDA = function (req, res) {
+    model.selectProductISUDA(function (err, result) {
+        if(err) console.log(err);
+        res.json(result);
+    });
+};
