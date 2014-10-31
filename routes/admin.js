@@ -72,11 +72,15 @@ router.post('/insertISUDAData', function (req, res) {
                     });
                 },
                 function (done) {
-                    productLongImgURL =  Date.now() + '.' + productLongImg.extension;
-                    fs.rename(productLongImg.path, '../static/pdLongImg/' + productLongImgURL, function (err) {
-                        if (err) throw err;
+                    if(productLongImg){
+                        productLongImgURL =  Date.now() + '.' + productLongImg.extension;
+                        fs.rename(productLongImg.path, '../static/pdLongImg/' + productLongImgURL, function (err) {
+                            if (err) throw err;
+                            done(null);
+                        });
+                    }else
                         done(null);
-                    });
+
                 },
                 function (done) {
                     if(productPgImg){
