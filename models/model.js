@@ -8,7 +8,11 @@ var async = require('async'),
 exports.now = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'select * from productInfo where productEndTime > now() and productStartTime <= now() order by productEndTime';
+        var Query = 'select * from productInfo where productStartTime >= curdate() and productStartTime < DATE_ADD(now(),INTERVAL 4 HOUR) and  '
+        + '(      (timediff(now(), productStartTime), providerId) '
+        +   ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
+        + ' where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0 '
+        + ' group by providerId      ) ) order by providerId' ;
 
         conn.query(Query, function (err, result) {
             console.log('now result');
