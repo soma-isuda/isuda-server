@@ -150,7 +150,7 @@ exports.insertCategoryAlarm = function (data, callback) {
 exports.insertISUDAData = function (data, callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'insert into productISUDA (productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL) values (?, ?, ?, ?, ?, ?, ?)';
+        var Query = 'insert into productISUDA (productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL, productLongImgURL) values (?, ?, ?, ?, ?, ?, ?, ?)';
         conn.query(Query, data, function (err, result) {
             console.log('insertISUDAData result');
             callback(err, result);

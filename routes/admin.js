@@ -58,7 +58,8 @@ router.post('/insertISUDAData', function (req, res) {
     var playURL = req.body.playURL;
     var productImg = req.files.productImg;
     var productPgImg = req.files.productPgImg;
-    var productImgURL = null, productPgImgURL = null;
+    var productLongImg = req.files.productLongImg;
+    var productImgURL = null, productPgImgURL = null, productLongImgURL = null;
 
     if (productImg) {
         async.waterfall([
@@ -68,6 +69,13 @@ router.post('/insertISUDAData', function (req, res) {
                         if (err) throw err;
                         done(null);
 
+                    });
+                },
+                function (done) {
+                    productLongImgURL =  Date.now() + '.' + productLongImg.extension;
+                    fs.rename(productLongImg.path, '../static/pdLongImg/' + productLongImgURL, function (err) {
+                        if (err) throw err;
+                        done(null);
                     });
                 },
                 function (done) {
@@ -83,11 +91,10 @@ router.post('/insertISUDAData', function (req, res) {
             ],
             function (err, result) {
 //                console.log(productPgImg.path, productImg.path);
-                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL ], function (err, result) {
+                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL, productPgImgURL], function (err, result) {
                     if (err) {
                         console.log(err);
                         res.send("데이터베이스 에러");
-
                     } else {
                         if (result.affectedRows == 1) {   //success
                             res.render('admin/article/mngISUDAData', { 'title': '입력 성공. 계속하세요.'});
