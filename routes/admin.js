@@ -95,7 +95,7 @@ router.post('/insertISUDAData', function (req, res) {
             ],
             function (err, result) {
 //                console.log(productPgImg.path, productImg.path);
-                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL, productPgImgURL], function (err, result) {
+                model.insertISUDAData([productName, productPrice, manufacturerName, productPgURL, productPgImgURL, productImgURL, playURL, productLongImgURL], function (err, result) {
                     if (err) {
                         console.log(err);
                         res.send("데이터베이스 에러");
