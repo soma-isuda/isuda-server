@@ -215,9 +215,8 @@ exports.productInfo = function (callback) {
         if (err) console.error('err', err);
         var Query = 'select p.id, p.productName, p.productPrice, p.productEndTime, p.productStartTime, p.providerId, p.productPgURL, p.productImgURL, ss.secondId, s.firstId '
         + 'from productInfo p, secondCategoryStandard ss, secondCategory s '
-        + 'where ss.id = p.secondId and s.id = ss.secondId and p.productEndTime > now() ';
+        + 'where ss.id = p.secondId and s.id = ss.secondId and p.productEndTime > now() order by productStartTime';
         conn.query(Query, function (err, result) {
-            console.log('productInfo result');
             callback(err, result);
         });
         db.pool.release(conn);
