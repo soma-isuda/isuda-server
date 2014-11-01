@@ -42,7 +42,7 @@ exports.nowOne = function (index, callback) {
 exports.getFirstCategory = function (data, callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'SELECT * FROM firstCategory';
+        var Query = 'SELECT * FROM firstCategory where id > 0';
         conn.query(Query, data, function (err, result) {
             console.log('getFirstCategory result');
             callback(err, result);
@@ -213,7 +213,9 @@ exports.productInfoByFirstId = function (data, callback) {
 exports.productInfo = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'SELECT * FROM productInfo where productStartTime > now() order by productStartTime ';
+        var Query = 'select p.id, p.productName, p.productPrice, p.productEndTime, p.productStartTime, p.providerId, p.productPgURL, p.productImgURL, ss.secondId, s.firstId '
+        + 'from productInfo p, secondCategoryStandard ss, secondCategory s '
+        + 'where ss.id = p.secondId and s.id = ss.secondId and p.productEndTime > now() ';
         conn.query(Query, function (err, result) {
             console.log('productInfo result');
             callback(err, result);
