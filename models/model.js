@@ -67,7 +67,7 @@ exports.getFirstCategory = function (data, callback) {
 exports.getProviders = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'SELECT * FROM provider';
+        var Query = 'SELECT * FROM provider where id != "NS"';
         conn.query(Query, function (err, result) {
             console.log('getProviders');
             callback(err, result);
