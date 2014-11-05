@@ -30,19 +30,21 @@ exports.now = function (req, res) {
 		    if (err) console.log(err);
             befResults = result;
 
-
-
             model.getNowISUDA(function (err, result) {
                 if (err) console.log(err);
-                befResults.push(result[0]);
+                var pdISUDA = result[0];
+                var now = new Date();
+                pdISUDA.productStartTime = now.toISOString();
+                pdISUDA.productEndTime = new Date(now.getTime() + 1000*59 + 1000*60*59 + 1000*60*60*23).toISOString();
+
+                befResults.push(pdISUDA);
+
                 if(providerNum){
                     res.send(befResults[providerNum]);
                 }else{
                     res.send(befResults);
                 }
             });
-
-
 
 		    var minTime = result[0].productEndTime;
 		    for(var i=1; i<result.length; i++){
