@@ -12,10 +12,23 @@ exports.now = function (callback) {
         + '(      (timediff(now(), productStartTime), providerId) '
         +   ' in   (     SELECT min(timediff(  now(), productStartTime ) ), providerId  from productInfo '
         + ' where timediff(now(), productStartTime) > 0 or timediff(now(), productStartTime) = 0 '
-        + ' group by providerId      ) ) order by providerId' ;
+        + ' group by providerId      ) ) order by providerId limit 5' ;
 
         conn.query(Query, function (err, result) {
             console.log('now result');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.getNowISUDA = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if (err) console.error('err', err);
+        var Query = 'select * from productISUDA limit 1';
+
+        conn.query(Query, function (err, result) {
+            console.log('now ISUDA result');
             callback(err, result);
         });
         db.pool.release(conn);

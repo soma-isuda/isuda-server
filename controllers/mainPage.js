@@ -28,14 +28,21 @@ exports.now = function (req, res) {
 	if(nowTime > befTime){	//need to get NEW NOW DATA
 		model.now(function (err, result) {
 		    if (err) console.log(err);
+            befResults = result;
 
-		    befResults = result;
 
-			if(providerNum){
-				res.send(befResults[providerNum]);
-			}else{
-				res.send(befResults);
-			}
+
+            model.getNowISUDA(function (err, result) {
+                if (err) console.log(err);
+                befResults.push(result[0]);
+                if(providerNum){
+                    res.send(befResults[providerNum]);
+                }else{
+                    res.send(befResults);
+                }
+            });
+
+
 
 		    var minTime = result[0].productEndTime;
 		    for(var i=1; i<result.length; i++){
