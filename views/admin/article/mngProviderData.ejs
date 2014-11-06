@@ -1,4 +1,5 @@
 <% include ../layout/header.ejs%>
+
 <table border="1">
     <thead>
     <tr align="center">
@@ -21,7 +22,7 @@
 
     <tr align="center">
         <td width="100"><%= data.id %></td>
-        <td width="250"><%= data.productStartTime.toISOString() %></td>
+        <td width="250"><%= data.productStartTime %></td>
         <td width="250"><%= data.productEndTime.toISOString() %></td>
         <td width="500"><%= data.productName %></td>
         <td><%= data.productPrice %></td>
@@ -35,12 +36,65 @@
         <td><a href=<%= go %>>Image</a></td>
         <% } %>
 
-        <td width="10"><%= data.firstId %></td>
-        <td width="10"><%= data.secondId %></td>
+        <td width="10">
+            <select class = 'first'>
+                <%  for(var fi=0; fi<first.length; fi++){ var firstEle = first[fi] %>
+                    <%  if(firstEle.id == data.firstId) { %>
+                        <option value=<%=firstEle.id%> selected><%=firstEle.name%></option>
+                    <%  }   else {%>
+                        <option value=<%=firstEle.id%>><%=firstEle.name%></option>
+                <%  } }  %>
+            </select>
+        </td>
+        <td width="10">
+            <select class = 'second'>
+                <%  for(var si=0; si<second.length; si++){ var secondEle = second[si] %>
+                <%  if(secondEle.id == data.secondId) { %>
+                <option value=<%=secondEle.id%> selected><%=secondEle.name%></option>
+                <%  }   else {%>
+                <option value=<%=secondEle.id%>><%=secondEle.name%></option>
+                <%  } }  %>
+            </select>
+        </td>
 
     </tr>
     <% } %>
 
     </tbody>
 </table>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+//    var secondEle = $('article .second option');
+    var secondArr = <%- JSON.stringify(second) %>;
+    var that;
+    var selectFirstId;
+    $('article').on('change','.first',function() {
+        var that = $(this);
+        var selectedStr = $(that).find( "option:selected" ).val();
+        selectFirstId = parseInt(selectedStr, 10);
+        //selected option' value ==> second를 controll
+        var str = '';
+        for(var i=0; i<secondArr.length; i++){
+            if(secondArr[i].firstStandardId == selectFirstId)
+                str += "<option value='"+ secondArr[i].id + "'>" +secondArr[i].name + "</option>"
+        }
+        $(that).parent().parent().find('.second').html(str);
+    });
+
+    $('article').on('change','.second',function() {
+        that = $(this);
+        var selectedStr = $(that).find( "option:selected" ).val();
+        var selectSecondId = parseInt(selectedStr, 10);
+        var id = $(that).parent().parent().find('td').first().text();
+            $.ajax({
+                url : '/admin/update?secondId='+ selectSecondId + '&firstId=' + selectFirstId + '&id=' + id,
+                dataType : 'json',
+                type : 'POST',
+                success : function(result) {
+                    console.log(result);
+                }
+            });
+    });
+</script>
+
 <% include ../layout/footer.ejs%>

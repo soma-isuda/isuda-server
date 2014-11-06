@@ -52,12 +52,36 @@ exports.nowOne = function (index, callback) {
     });
 };
 
-exports.getFirstCategory = function (data, callback) {
+exports.getFirstStandardCategory = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if (err) console.error('err', err);
+        var Query = 'SELECT * FROM firstCategoryStandard';
+        conn.query(Query, function (err, result) {
+            console.log('getFirstStandardCategory');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.getSecondStandardCategory = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if (err) console.error('err', err);
+        var Query = 'SELECT * FROM secondCategoryStandard';
+        conn.query(Query, function (err, result) {
+            console.log('getSecondStandardCategory');
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
+
+exports.getFirstCategory = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
         var Query = 'SELECT * FROM firstCategory where id > 0';
-        conn.query(Query, data, function (err, result) {
-            console.log('getFirstCategory result');
+        conn.query(Query, function (err, result) {
+            console.log('getFirstCategory');
             callback(err, result);
         });
         db.pool.release(conn);
@@ -385,6 +409,17 @@ exports.selectProductISUDA = function (callback) {
             console.log('selectProductISUDA');
             callback(err, result);
         });
+        db.pool.release(conn);
+    });
+};
+
+exports.updateCategory = function(data, callback) {
+    db.pool.acquire(function(err, conn) {
+        if(err) console.error('err', err);
+        conn.query('UPDATE productInfo SET firstId = ?, secondId = ? WHERE id= ?', data, function(err, result) {
+            console.log('updateCategory');
+                callback(err, result);
+            });
         db.pool.release(conn);
     });
 };

@@ -19,9 +19,30 @@ router.post('/', function (req, res) {
 
         if (password == data.toString()) {
 //        req.session.auth = true;
-            model.productInfo(function (err, result) {
-                if (err) console.log(err);
-                res.render('admin/article/mngProviderData', { 'title': '홈쇼핑 편성표 관리', 'results': result });
+            async.waterfall([
+                function (callback) {
+                    model.getFirstStandardCategory(function (err, result) {
+                        if(err) console.log(err);
+                        callback(null, result);
+                    });
+                },
+                function (first, callback) {
+                    model.getSecondStandardCategory(function (err, result) {
+                        if(err) console.log(err);
+                        callback(null, first, result);
+                    });
+                }
+            ], function (err, first, second) {
+                model.productInfo(function (err, result) {
+                    if (err) console.log(err);
+                    res.render('admin/article/mngProviderData', {
+                        'title': '홈쇼핑 편성표 관리',
+                        'results': result,
+                        'first' : first,
+                        'second' : second
+                    });
+                });
+
             });
         } else {
             res.redirect('/admin');
@@ -32,10 +53,44 @@ router.post('/', function (req, res) {
 });
 
 router.post('/mngProviderData', function (req, res) {
-    model.productInfo(function (err, result) {
-        if (err) console.log(err);
-        res.render('admin/article/mngProviderData', { 'title': '홈쇼핑 편성표 관리', 'results': result });
+
+    async.waterfall([
+        function (callback) {
+            model.getFirstStandardCategory(function (err, result) {
+                if(err) console.log(err);
+                callback(null, result);
+            });
+        },
+        function (first, callback) {
+            model.getSecondStandardCategory(function (err, result) {
+                if(err) console.log(err);
+                callback(null, first, result);
+            });
+        }
+    ], function (err, first, second) {
+        model.productInfo(function (err, result) {
+            if (err) console.log(err);
+            res.render('admin/article/mngProviderData', {
+                'title': '홈쇼핑 편성표 관리',
+                'results': result,
+                'first' : first,
+                'second' : second
+            });
+        });
+
     });
+
+});
+
+router.post('/update', function (req, res) {
+    var secondId = req.param('secondId');
+    var firstId = req.param('firstId');
+    var id = req.param('id');
+    console.log(firstId, secondId, id);
+    model.updateCategory([firstId, secondId, id], function (err, result) {
+        res.json({ result : 'success'});
+    });
+
 });
 
 router.get('/checkImg', function (req, res) {
