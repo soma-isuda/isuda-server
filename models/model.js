@@ -404,7 +404,7 @@ exports.selectProductCount = function (data, callback) {
 exports.selectProductISUDA = function (callback) {
     db.pool.acquire(function (err, conn) {
        if(err) console.err('err', err);
-        var Query = 'select * from productISUDA';
+        var Query = 'select * from productISUDA where id <= 5';
         conn.query(Query, function (err, result) {
             console.log('selectProductISUDA');
             callback(err, result);
