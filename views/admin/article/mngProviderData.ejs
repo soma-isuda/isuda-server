@@ -4,16 +4,16 @@
     <thead>
     <tr align="center">
         <th>id</th>
-        <th>productStartTime</th>
-        <th>productEndTime</th>
-        <th>productName</th>
-        <th>productPrice</th>
-        <th>providerId</th>
-        <th>Page</th>
-        <th>Thumbnail</th>
-        <th>Image</th>
-        <th>firstCategory</th>
-        <th>secondCategory</th>
+        <th>방송시작시간</th>
+        <th>방송종료시간</th>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>채널</th>
+        <th>page</th>
+        <th>상품대표사진</th>
+        <th>상세페이지 사진</th>
+        <th>대분류</th>
+        <th>중분류</th>
     </tr>
     </thead>
     <tbody>
@@ -22,13 +22,13 @@
 
     <tr align="center">
         <td width="100"><%= data.id %></td>
-        <td width="250"><%= data.productStartTime %></td>
-        <td width="250"><%= data.productEndTime.toISOString() %></td>
+        <td><%= data.productStartTime.getMonth()%>/<%= data.productStartTime.getDate()%><br><%= data.productStartTime.toLocaleTimeString() %></td>
+        <td><%= data.productEndTime.getMonth()%>/<%= data.productEndTime.getDate()%><br><%= data.productEndTime.toLocaleTimeString() %></td>
         <td width="500"><%= data.productName %></td>
         <td><%= data.productPrice %></td>
         <td width="10"><%= data.providerId %></td>
         <td><a href=<%= data.productPgURL %>>Page</a></td>
-        <td><a href=<%= data.productImgURL %>>Thumbnail</a></td>
+        <td><img src=<%= data.productImgURL %>></td>
         <% if(data.providerId == "NS"){ %>
         <td>NOTHING</td>
         <% } else { %>
