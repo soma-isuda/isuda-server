@@ -260,6 +260,16 @@ exports.productInfo = function (callback) {
     });
 };
 
+exports.productInfoAdmin = function (callback) {
+    db.pool.acquire(function (err, conn) {
+        if (err) console.error('err', err);
+        var Query = 'select * from productInfo where productEndTime > now()';
+        conn.query(Query, function (err, result) {
+            callback(err, result);
+        });
+        db.pool.release(conn);
+    });
+};
 
 exports.selectSMSAlarms = function (data, callback) {
     db.pool.acquire(function (err, conn) {
