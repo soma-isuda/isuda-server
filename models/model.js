@@ -153,14 +153,14 @@ exports.deleteUser = function (data, callback) {
                         console.log('DELETE SMSAlarm');
                         done(null);
                     });
-                },
-
-                function (done) {
-                    conn.query('DELETE FROM user WHERE `phoneNumber` = ? ', data, function (err, result) {
-                        console.log('DELETE user');
-                        done(null, result);
-                    });
                 }
+
+//                function (done) {
+//                    conn.query('DELETE FROM user WHERE `phoneNumber` = ? ', data, function (err, result) {
+//                        console.log('DELETE user');
+//                        done(null, result);
+//                    });
+//                }
             ],
             function (err, result) {
                 callback(err, result);
@@ -265,7 +265,7 @@ exports.selectSMSAlarms = function (data, callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
         console.log(data);
-        var Query = 'SELECT * from productInfo where id in (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? ))';
+        var Query = 'SELECT * from productInfo where id in (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? )) and productStartTime > now()';
         conn.query(Query, data, function (err, result) {
             console.log('selectSMSAlarms result');
             callback(err, result);
@@ -277,7 +277,7 @@ exports.selectSMSAlarms = function (data, callback) {
 exports.selectCategoryAlarms = function (data, callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? ))';
+        var Query = 'SELECT * from productInfo where secondId in (SELECT secondId from categoryAlarm where userId = (select id from `user` where phoneNumber= ? )) and productStartTime > now()';
         conn.query(Query, data, function (err, result) {
             console.log('selectCategoryAlarms result');
             callback(err, result);
