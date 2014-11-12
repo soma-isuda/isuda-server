@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
                     });
                 }
             ], function (err, first, second) {
-                model.productInfo(function (err, result) {
+                model.productInfoAdmin(function (err, result) {
                     if (err) console.log(err);
                     res.render('admin/article/mngProviderData', {
                         'title': '홈쇼핑 편성표 관리',
