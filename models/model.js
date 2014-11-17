@@ -263,7 +263,7 @@ exports.productInfo = function (callback) {
 exports.productInfoAdmin = function (callback) {
     db.pool.acquire(function (err, conn) {
         if (err) console.error('err', err);
-        var Query = 'select * from productInfo where productEndTime > now()';
+        var Query = 'select * from productInfo where productEndTime > now() order by productStartTime';
         conn.query(Query, function (err, result) {
             callback(err, result);
         });
