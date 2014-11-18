@@ -252,7 +252,7 @@ exports.productInfo = function (callback) {
         if (err) console.error('err', err);
         var Query = 'select p.id, p.productName, p.productPrice, p.productEndTime, p.productStartTime, p.providerId, p.productPgURL, p.productImgURL, ss.secondId, s.firstId '
         + 'from productInfo p, secondCategoryStandard ss, secondCategory s '
-        + 'where ss.id = p.secondId and s.id = ss.secondId and p.productEndTime > now() order by productStartTime';
+        + 'where ss.id = p.secondId and s.id = ss.secondId and p.productStartTime > now() order by productStartTime';
         conn.query(Query, function (err, result) {
             callback(err, result);
         });
@@ -277,7 +277,7 @@ exports.selectSMSAlarms = function (data, callback) {
         console.log(data);
         var Query = 'SELECT * from productInfo where id in (SELECT productId from SMSAlarm where userId = (select id from `user` where phoneNumber=? )) and productStartTime > now()';
         conn.query(Query, data, function (err, result) {
-            console.log('selectSMSAlarms result');
+            console.log('selectSMSAlarms');
             callback(err, result);
         });
         db.pool.release(conn);
