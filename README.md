@@ -1,4 +1,4 @@
 isuda-server
 ============
 
-nodejs project of team isuda
+nodejs web application server of team isuda
